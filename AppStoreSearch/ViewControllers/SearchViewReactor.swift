@@ -8,23 +8,34 @@
 
 final class SearchViewReactor: Reactor {
   enum Action {
-    case saveWord(String)
+    case searchWord(String)
+    case recentSearchWord(String?)
+    case togglePresented(Bool)
   }
   
   enum Mutation {
-    case loadRecentList
+    case togglePresented(Bool)
+    case recentSearchWord(String?)
   }
   
   struct State {
-    var sections: [RecentSearchSection]
+    var sections: [RecentSearchSection] = []
+    
+    var presented: Bool = false
   }
   
-  var initialState: State
+  var initialState = State()
   
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
-    case .saveWord(let text):
-      return saveWord(text: text)
+    case .searchWord(let text):
+      return searchWord(text: text)
+      
+    case .recentSearchWord(let text):
+      return .just(.recentSearchWord(text))
+      
+    case .togglePresented(let flag):
+      return .just(.togglePresented(flag))
     }
   }
   
@@ -32,36 +43,51 @@ final class SearchViewReactor: Reactor {
     var newState = state
     
     switch mutation {
-    case .loadRecentList:
-      newState.sections = SearchViewReactor.loadRecentList()
+    case .togglePresented(let flag):
+      newState.presented = flag
+      newState.sections = flag ? [] : loadRecentList()
+      
+    case .recentSearchWord(let text):
+      newState.sections = loadRecentList(searchWord: text)
     }
     
     return newState
   }
-  
-  init() {
-    let recentSearchList = SearchViewReactor.loadRecentList()
-    initialState = State(sections: recentSearchList)
-  }
 }
 
 extension SearchViewReactor {
-  private func saveWord(text: String) -> Observable<Mutation> {
-    var recentSearchList = UserDefaults.standard.stringArray(forKey: "recentList") ?? []
+  private func searchWord(text: String) -> Observable<Mutation> {
+    var recentSearchList = UserDefaults.standard.stringArray(forKey: "recentSearchList") ?? []
     recentSearchList.append(text)
-    UserDefaults.standard.set(recentSearchList, forKey: "recentList")
     
-    return .just(.loadRecentList)
+    UserDefaults.standard.set(recentSearchList, forKey: "recentSearchList")
+    // 최근 검색 결과 내에서 리스팅해야함
+    return .empty()
   }
   
-  private class func loadRecentList() -> [RecentSearchSection] {
+  private func loadRecentList(searchWord: String? = nil) -> [RecentSearchSection] {
     var section: [RecentSearchSection] = []
-    var items: [RecentSearchItem] = [.header]
+    var items: [RecentSearchItem] = []
     
-    if let recentSearchList = UserDefaults.standard.stringArray(forKey: "recentList") {
-      recentSearchList.reversed().forEach {
-        let reactor = RecentSearchCellReactor(model: RecentSearchModel(text: $0))
-        items.append(.item(reactor))
+    if !currentState.presented {
+      items.append(.header)
+    }
+    
+    if let recentSearchList = UserDefaults.standard.stringArray(forKey: "recentSearchList") {
+      if let searchWord = searchWord, currentState.presented {
+        recentSearchList
+          .filter { $0.lowercased().contains(searchWord.lowercased()) }
+          .forEach {
+            let reactor = RecentSearchCellReactor(model: RecentSearchModel(text: $0), isRecentSearch: true)
+            items.append(.item(reactor))
+        }
+      } else if !currentState.presented {
+        recentSearchList
+          .reversed()
+          .forEach {
+            let reactor = RecentSearchCellReactor(model: RecentSearchModel(text: $0))
+            items.append(.item(reactor))
+        }
       }
     }
     

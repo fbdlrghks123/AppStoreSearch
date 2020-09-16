@@ -12,11 +12,13 @@ final class RecentSearchCellReactor: Reactor {
   
   struct State {
     var title: String
+    var isRecentSearch: Bool
   }
   
   var initialState: State
   
-  init(model: RecentSearchModel) {
-    initialState = State(title: model.text)
+  init(model: RecentSearchModel, isRecentSearch: Bool = false) {
+    initialState = State(title: model.text,
+                         isRecentSearch: isRecentSearch)
   }
 }

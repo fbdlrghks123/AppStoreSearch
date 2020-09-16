@@ -13,7 +13,6 @@ final class RecentSearchCell: BaseTableViewCell, View {
   // MARK: UI
   
   private let titleLabel = UILabel().then {
-    $0.textColor = .systemBlue
     $0.font = .systemFont(ofSize: 18)
   }
   
@@ -33,6 +32,16 @@ final class RecentSearchCell: BaseTableViewCell, View {
   }
   
   func bind(reactor: RecentSearchCellReactor) {
+    let isRecentSearch = reactor.currentState.isRecentSearch
+    
+    titleLabel.textColor = isRecentSearch ? .black : .systemBlue
+    
+    titleLabel.snp.makeConstraints {
+      $0.top.equalTo(isRecentSearch ? 20 : 10)
+      $0.leading.equalTo(20)
+      $0.bottom.equalTo(-10)
+    }
+    
     reactor.state
       .map { $0.title }
       .bind(to: titleLabel.rx.text)
@@ -40,12 +49,6 @@ final class RecentSearchCell: BaseTableViewCell, View {
   }
   
   private func setupConstraints() {
-    titleLabel.snp.makeConstraints {
-      $0.top.equalTo(10)
-      $0.leading.equalTo(20)
-      $0.bottom.equalTo(-10)
-    }
-    
     underLine.snp.makeConstraints {
       $0.leading.equalTo(20)
       $0.trailing.bottom.equalToSuperview()

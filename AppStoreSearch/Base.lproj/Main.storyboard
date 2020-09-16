@@ -109,6 +109,24 @@
             </objects>
             <point key="canvasLocation" x="1473.913043478261" y="353.57142857142856"/>
         </scene>
+        <!--Search Result View Controller-->
+        <scene sceneID="4jY-AO-HHw">
+            <objects>
+                <tableViewController storyboardIdentifier="SearchResultViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MOZ-a2-O8z" customClass="SearchResultViewController" customModule="AppStoreSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Afc-th-03x">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="MOZ-a2-O8z" id="I78-d3-XMY"/>
+                            <outlet property="delegate" destination="MOZ-a2-O8z" id="mC6-hy-5Zy"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EPn-br-kgN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2216" y="354"/>
+        </scene>
         <!--앱-->
         <scene sceneID="CYl-OI-5TB">
             <objects>

@@ -12,3 +12,10 @@ class BaseViewController: UIViewController {
   
   var disposeBag = DisposeBag()
 }
+
+class BaseTableViewController: UITableViewController {
+  
+  // MARK: RX
+  
+  var disposeBag = DisposeBag()
+}

@@ -10,8 +10,14 @@ final class SearchViewController: BaseViewController, View {
 
   // MARK: UI
   
-  private let searchBar = UISearchBar()
-  private let searchBarController = UISearchController(searchResultsController: nil)
+  private let searchBarController = UISearchController(searchResultsController: nil).then {
+    $0.searchBar.placeholder = "게임, 앱, 스토리 등"
+    $0.obscuresBackgroundDuringPresentation = false
+  }
+  
+  private var searchBar: UISearchBar {
+    return self.searchBarController.searchBar
+  }
   
   private let tableView = UITableView().then {
     $0.register(RecentSearchCell.self, forCellReuseIdentifier: RecentSearchCell.Identifier)
@@ -40,29 +46,47 @@ final class SearchViewController: BaseViewController, View {
   private func setupConstraints() {
     view.addSubview(tableView)
     
-    tableView.snp.makeConstraints {
+    self.tableView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
   }
   
   func bind(reactor: SearchViewReactor) {
     // Input
-    rx.viewDidLoad
-      .subscribe(onNext: { [weak self] _ in
+    self.rx.viewDidLoad
+      .do(onNext: { [weak self] _ in
         self?.tableView.separatorStyle = .none
-        self?.searchBarController.searchBar.placeholder = "게임, 앱, 스토리 등"
         self?.navigationItem.hidesSearchBarWhenScrolling = false
         self?.navigationItem.searchController = self?.searchBarController
         self?.setupConstraints()
       })
+      .map{ _ in Reactor.Action.togglePresented(false) }
+      .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
     
     // Action
-    searchBarController.searchBar.rx
-      .searchButtonClicked
-      .withLatestFrom(searchBarController.searchBar.rx.text.orEmpty)
-      .map(Reactor.Action.saveWord)
+    self.searchBar.rx.text.orEmpty
+      .map { $0.isEmpty ? nil : $0 }
+      .map(Reactor.Action.recentSearchWord)
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
+    self.searchBar.rx.searchButtonClicked
+      .withLatestFrom(self.searchBar.rx.text.orEmpty)
+      .map(Reactor.Action.searchWord)
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
+    self.searchBarController.rx.willPresent
+      .map { true }
+      .map(Reactor.Action.togglePresented)
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
+    self.searchBarController.rx.willDismiss
+      .map { false }
+      .map(Reactor.Action.togglePresented)
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
@@ -70,7 +94,7 @@ final class SearchViewController: BaseViewController, View {
     // State
     reactor.state
       .map { $0.sections }
-      .bind(to: tableView.rx.items(dataSource: dataSource))
+      .bind(to: tableView.rx.items(dataSource: self.dataSource))
       .disposed(by: disposeBag)
   }
 }
