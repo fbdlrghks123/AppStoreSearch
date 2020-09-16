@@ -14,7 +14,11 @@ final class RecentSearchCell: BaseTableViewCell, View {
   
   private let titleLabel = UILabel().then {
     $0.textColor = .systemBlue
-    $0.font = .systemFont(ofSize: 16)
+    $0.font = .systemFont(ofSize: 18)
+  }
+  
+  private let underLine = UIView().then {
+    $0.backgroundColor = .systemGroupedBackground
   }
   
   
@@ -24,6 +28,7 @@ final class RecentSearchCell: BaseTableViewCell, View {
     super.init(style: .value1, reuseIdentifier: reuseIdentifier)
     selectionStyle = .none
     addSubview(titleLabel)
+    addSubview(underLine)
     setupConstraints()
   }
   
@@ -39,6 +44,12 @@ final class RecentSearchCell: BaseTableViewCell, View {
       $0.top.equalTo(10)
       $0.leading.equalTo(20)
       $0.bottom.equalTo(-10)
+    }
+    
+    underLine.snp.makeConstraints {
+      $0.leading.equalTo(20)
+      $0.trailing.bottom.equalToSuperview()
+      $0.height.equalTo(1)
     }
   }
 }

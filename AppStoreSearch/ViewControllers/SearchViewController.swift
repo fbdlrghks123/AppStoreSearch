@@ -49,6 +49,7 @@ final class SearchViewController: BaseViewController, View {
     // Input
     rx.viewDidLoad
       .subscribe(onNext: { [weak self] _ in
+        self?.tableView.separatorStyle = .none
         self?.searchBarController.searchBar.placeholder = "게임, 앱, 스토리 등"
         self?.navigationItem.hidesSearchBarWhenScrolling = false
         self?.navigationItem.searchController = self?.searchBarController
