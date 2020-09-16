@@ -6,7 +6,11 @@
 //  Copyright © 2020 Ickhwan Ryu. All rights reserved.
 //
 
-struct RecentSearchModel: Decodable, Equatable {
+struct RecentSearchModel: Decodable, Equatable, IdentifiableType {
+  var identity: String {
+    return "recentSearchModel"
+  }
+    
   var text: String
   
   static func == (lhs: Self, rhs: Self) -> Bool {

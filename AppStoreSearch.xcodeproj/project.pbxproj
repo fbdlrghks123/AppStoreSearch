@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C22FAC125122A19001C9287 /* RecentSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22FAC025122A19001C9287 /* RecentSearchCell.swift */; };
+		0C22FAC325122BCC001C9287 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22FAC225122BCC001C9287 /* BaseTableViewCell.swift */; };
+		0C22FAC525122BFC001C9287 /* RecentSearchCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22FAC425122BFC001C9287 /* RecentSearchCellReactor.swift */; };
+		0C22FAC825123C4B001C9287 /* RecentSearchHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22FAC725123C4B001C9287 /* RecentSearchHeaderCell.swift */; };
 		1FDFB69F2B12569344F4FE4F /* libPods-AppStoreSearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E9F0D5C5C6050DBF51A408 /* libPods-AppStoreSearch.a */; };
 		D3054BB2251204D7000AEE7F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3054BB1251204D7000AEE7F /* SearchViewController.swift */; };
 		D3054BB425120BC6000AEE7F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3054BB325120BC6000AEE7F /* BaseViewController.swift */; };
@@ -20,6 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C22FAC025122A19001C9287 /* RecentSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCell.swift; sourceTree = "<group>"; };
+		0C22FAC225122BCC001C9287 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		0C22FAC425122BFC001C9287 /* RecentSearchCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCellReactor.swift; sourceTree = "<group>"; };
+		0C22FAC725123C4B001C9287 /* RecentSearchHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearchHeaderCell.swift; sourceTree = "<group>"; };
 		43E9F0D5C5C6050DBF51A408 /* libPods-AppStoreSearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppStoreSearch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5714AAAD1589F4E34A5FCDCE /* Pods-AppStoreSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreSearch.release.xcconfig"; path = "Target Support Files/Pods-AppStoreSearch/Pods-AppStoreSearch.release.xcconfig"; sourceTree = "<group>"; };
 		9B17762637AB78BE7E8C29B6 /* Pods-AppStoreSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreSearch.debug.xcconfig"; path = "Target Support Files/Pods-AppStoreSearch/Pods-AppStoreSearch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -49,6 +57,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C22FABF251229FD001C9287 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0C22FAC225122BCC001C9287 /* BaseTableViewCell.swift */,
+				0C22FAC025122A19001C9287 /* RecentSearchCell.swift */,
+				0C22FAC425122BFC001C9287 /* RecentSearchCellReactor.swift */,
+				0C22FAC725123C4B001C9287 /* RecentSearchHeaderCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		62DF212D85E0C3B0CFF3357D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +129,7 @@
 		D31DCADB2511FE71006DA08E /* AppStoreSearch */ = {
 			isa = PBXGroup;
 			children = (
+				0C22FABF251229FD001C9287 /* View */,
 				D3054BBF2512166B000AEE7F /* Sections */,
 				D3054BBC251210BD000AEE7F /* System */,
 				D3054BBB251210B8000AEE7F /* Model */,
@@ -232,10 +252,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C22FAC525122BFC001C9287 /* RecentSearchCellReactor.swift in Sources */,
+				0C22FAC325122BCC001C9287 /* BaseTableViewCell.swift in Sources */,
 				D3054BB2251204D7000AEE7F /* SearchViewController.swift in Sources */,
+				0C22FAC125122A19001C9287 /* RecentSearchCell.swift in Sources */,
 				D3054BB425120BC6000AEE7F /* BaseViewController.swift in Sources */,
 				D3054BC1251216AD000AEE7F /* RecentSearchSection.swift in Sources */,
 				D3054BBE2512159E000AEE7F /* RecentSearchModel.swift in Sources */,
+				0C22FAC825123C4B001C9287 /* RecentSearchHeaderCell.swift in Sources */,
 				D31DCADD2511FE71006DA08E /* AppDelegate.swift in Sources */,
 				D3054BB625120CB0000AEE7F /* SearchViewReactor.swift in Sources */,
 			);

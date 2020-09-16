@@ -16,4 +16,7 @@ target 'AppStoreSearch' do
   pod 'ReactorKit'
   pod 'RxDataSources'
   pod 'RxViewController'
+
+# UI
+  pod 'SnapKit'
 end
