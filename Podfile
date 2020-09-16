@@ -3,8 +3,17 @@ use_modular_headers!
 inhibit_all_warnings!
 
 target 'AppStoreSearch' do
+# Architecture
+  pod 'ReactorKit'
+
+# Rx
+  pod 'Then'
+
+# Util
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'Then'
+
   pod 'ReactorKit'
+  pod 'RxDataSources'
+  pod 'RxViewController'
 end

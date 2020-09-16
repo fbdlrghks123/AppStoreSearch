@@ -6,28 +6,24 @@
 //  Copyright © 2020 Ickhwan Ryu. All rights reserved.
 //
 
-import UIKit
-import RxSwift
-import RxCocoa
-import Then
-
-final class SearchViewController: UIViewController {
+final class SearchViewController: BaseViewController, View {
 
   // MARK: UI
   
   private let searchBar = UISearchBar()
   
-  private let searchController = UISearchController(searchResultsController: nil).then {
-    $0.searchBar.placeholder = "게임, 앱, 스토리 등"
-  }
+  private let searchBarController = UISearchController(searchResultsController: nil)
   
-  
-  // MARK: ViewCycle
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    navigationItem.hidesSearchBarWhenScrolling = false
-    navigationItem.searchController = searchController
+ 
+  func bind(reactor: SearchViewReactor) {
+    // Input
+    rx.viewDidLoad
+      .subscribe(onNext: { [weak self] _ in
+        self?.navigationItem.hidesSearchBarWhenScrolling = false
+        self?.navigationItem.searchController = self?.searchBarController
+        
+        self?.searchBarController.searchBar.placeholder = "게임, 앱, 스토리 등"
+      })
+      .disposed(by: disposeBag)
   }
 }
