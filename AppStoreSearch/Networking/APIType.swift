@@ -30,7 +30,7 @@ extension APIType {
     return "http://itunes.apple.com"
   }
   
-  func request<T: Decodable>(type: T.Type) -> Single<T> {
+  func request<T: Decodable>(type: T.Type) -> Observable<ApiResult<T, Error>> {
     guard let urlString = (baseURL + path).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
       return .error(APPError.networkError)
     }
@@ -38,6 +38,6 @@ extension APIType {
     var urlRequest = URLRequest(url: dataURL)
     urlRequest.httpMethod = methods.rawValue
     
-    return URLSession.shared.rx.responseTo(request: urlRequest)
+    return URLSession.shared.rx.responseTo(request: urlRequest).asObservable()
    }
 }

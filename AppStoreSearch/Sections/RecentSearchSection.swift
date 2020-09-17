@@ -1,31 +1,32 @@
 //
-//  RecentSearchSection.swift
+//  SearchSection.swift
 //  AppStoreSearch
 //
 //  Created by Ickhwan Ryu on 2020/09/16.
 //  Copyright © 2020 Ickhwan Ryu. All rights reserved.
 //
 
-enum RecentSearchSection {
-  case section([RecentSearchItem])
+enum SearchSection {
+  case section([SearchItem])
 }
 
-extension RecentSearchSection: SectionModelType {
-  var items: [RecentSearchItem] {
+extension SearchSection: SectionModelType {
+  var items: [SearchItem] {
     switch self {
     case .section(let items): return items
     }
   }
   
-  init(original: RecentSearchSection, items: [RecentSearchItem]) {
+  init(original: SearchSection, items: [SearchItem]) {
     switch original {
     case .section: self = .section(items)
     }
   }
 }
 
-enum RecentSearchItem {
+enum SearchItem {
   case header
   case item(RecentSearchCellReactor)
+  case app(AppListCellReactor)
 }
 

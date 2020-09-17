@@ -8,8 +8,6 @@
 
 final class RecentSearchHeaderCell: BaseTableViewCell, View {
   
-  static let Identifier = "recentSearchHeaderCell"
-  
   // MARK: UI
   
   private let titleLabel = UILabel().then {

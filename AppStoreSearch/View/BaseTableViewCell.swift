@@ -6,8 +6,20 @@
 //  Copyright © 2020 Ickhwan Ryu. All rights reserved.
 //
 
-class BaseTableViewCell: UITableViewCell {
+protocol ReusableView: class  {
+  static var defaultIdentifier: String { get }
+}
 
+extension ReusableView where Self: UIView {
+  static var defaultIdentifier: String {
+      return NSStringFromClass(self)
+  }
+}
+
+class BaseTableViewCell: UITableViewCell, ReusableView {
+
+  // MARK: Rx
+  
   var disposeBag = DisposeBag()
   
 

@@ -20,22 +20,27 @@ final class SearchViewController: BaseViewController, View {
   }
   
   private let tableView = UITableView().then {
-    $0.register(RecentSearchCell.self, forCellReuseIdentifier: RecentSearchCell.Identifier)
-    $0.register(RecentSearchHeaderCell.self, forCellReuseIdentifier: RecentSearchHeaderCell.Identifier)
+    $0.register(RecentSearchCell.self, forCellReuseIdentifier: RecentSearchCell.defaultIdentifier)
+    $0.register(RecentSearchHeaderCell.self, forCellReuseIdentifier: RecentSearchHeaderCell.defaultIdentifier)
+    $0.register(AppListCell.self, forCellReuseIdentifier: AppListCell.defaultIdentifier)
   }
   
   
   // MARK: Property
   
-  private let dataSource: RxTableViewSectionedReloadDataSource<RecentSearchSection> = {
-    return RxTableViewSectionedReloadDataSource<RecentSearchSection>(
+  private let dataSource: RxTableViewSectionedReloadDataSource<SearchSection> = {
+    return RxTableViewSectionedReloadDataSource<SearchSection>(
       configureCell: { (ds, tableView, index, item) -> UITableViewCell in
         switch item {
         case .header:
-          let cell = RecentSearchHeaderCell(style: .default, reuseIdentifier: RecentSearchHeaderCell.Identifier)
+          let cell = RecentSearchHeaderCell(style: .default, reuseIdentifier: RecentSearchHeaderCell.defaultIdentifier)
           return cell
         case .item(let reactor):
-          let cell = RecentSearchCell(style: .default, reuseIdentifier: RecentSearchCell.Identifier)
+          let cell = RecentSearchCell(style: .default, reuseIdentifier: RecentSearchCell.defaultIdentifier)
+          cell.reactor = reactor
+          return cell
+        case .app(let reactor):
+          let cell = AppListCell(style: .default, reuseIdentifier: AppListCell.defaultIdentifier)
           cell.reactor = reactor
           return cell
         }

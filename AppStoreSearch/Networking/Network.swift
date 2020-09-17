@@ -13,34 +13,41 @@ enum APPError: Error {
   case invalidStatusCode(Int)
 }
 
+struct ApiResult<Success: Decodable, Fail> where Fail: Error {
+  let result: Result<Success, Fail>
+  
+  var success: Success? {
+    guard case .success(let value) = result else { return nil }
+    return value
+  }
+  
+  var fail: Fail? {
+    guard case .failure(let error) = result else { return nil }
+    return error
+  }
+  
+  init(result: Result<Success, Fail>) {
+    self.result = result
+  }
+}
+
 extension Reactive where Base: URLSession {
-  public func responseTo<T: Decodable>(request: URLRequest) -> Single<T>{
+  func responseTo<T: Decodable>(request: URLRequest) -> Single<ApiResult<T, Error>> {
     return self.response(request: request)
-      .retry(3)
+      .take(1)
       .asSingle()
-      .flatMap { (response, data) -> PrimitiveSequence<SingleTrait, T> in
+      .flatMap { (response, data) -> Single<ApiResult<T, Error>> in
         return Single.create { single in
           if response.statusCode >= 200 && response.statusCode < 300 {
             do {
               let decodedObject = try JSONDecoder().decode(T.self, from: data)
-              single(.success(decodedObject))
-            } catch {
-              single(.error(APPError.jsonParsingError))
+              single(.success(ApiResult(result: .success(decodedObject))))
+            } catch let error {
+              single(.success(ApiResult(result: .failure(error))))
             }
           }
           return Disposables.create()
         }
     }
   }
-}
-
-extension PrimitiveSequence where Trait == SingleTrait, Element: Decodable {
-    @discardableResult
-    public func onResponse(
-      _ onNext: @escaping (Element) -> Void,
-      onError: @escaping (Error) -> Void
-    ) -> Disposable {
-        return self.observeOn(MainScheduler.instance)
-          .subscribe(onSuccess: onNext, onError: onError)
-    }
 }
