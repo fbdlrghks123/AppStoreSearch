@@ -12,8 +12,4 @@ struct RecentSearchModel: Decodable, Equatable, IdentifiableType {
   }
     
   var text: String
-  
-  static func == (lhs: Self, rhs: Self) -> Bool {
-    return lhs.text == rhs.text
-  }
 }
