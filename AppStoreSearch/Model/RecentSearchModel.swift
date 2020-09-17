@@ -7,9 +7,5 @@
 //
 
 struct RecentSearchModel {
-  var identity: String {
-    return "recentSearchModel"
-  }
-    
   var text: String
 }

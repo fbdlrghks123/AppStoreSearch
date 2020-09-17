@@ -30,7 +30,9 @@ final class SearchViewReactor: Reactor {
     switch action {
     case .searchApp(let text):
       let saveWordMutation = saveWord(text: text)
-      let requestMutation = AppStoreApi.search(str: text).request(type: AppResponse.self).map(Mutation.response)
+      let requestMutation = AppStoreApi.search(str: text)
+        .request(type: AppResponse.self)
+        .map(Mutation.response)
       return .concat([saveWordMutation, requestMutation])
       
     case .recentSearchWord(let text):
@@ -46,10 +48,10 @@ final class SearchViewReactor: Reactor {
     
     switch mutation {
     case .togglePresented(let flag):
-      newState.sections = flag ? [] : loadRecentList(presneted: false)
+      newState.sections = flag ? [] : self.loadRecentList(presneted: false)
       
     case .recentSearchWord(let text):
-      newState.sections = loadRecentList(presneted: true, searchWord: text)
+      newState.sections = self.loadRecentList(presneted: true, searchWord: text)
       
     case .response(let result):
       if let appResponse = result.success {

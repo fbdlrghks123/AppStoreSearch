@@ -18,7 +18,7 @@ final class App: Decodable {
     var screenshots: [String]
     
     var media: [String] {
-        var images = screenshots
+        var images = self.screenshots
         images.insert(icon, at: 0)
         return images
     }

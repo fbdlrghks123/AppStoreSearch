@@ -69,6 +69,19 @@ final class SearchViewController: BaseViewController, View {
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
+    self.tableView.rx.itemSelected(dataSource: self.dataSource)
+      .subscribe(onNext: { [weak self] sectionItem in
+        switch sectionItem {
+        case .item:
+          break
+        case .app(let appReactor):
+          self?.performSegue(withIdentifier: "AppDetailSG", sender: appReactor.currentState.app)
+        default:
+          break
+        }
+      })
+      .disposed(by: disposeBag)
+    
     
     // Action
     self.searchBarController.rx.willPresent
@@ -101,5 +114,12 @@ final class SearchViewController: BaseViewController, View {
       .map { $0.sections }
       .bind(to: tableView.rx.items(dataSource: self.dataSource))
       .disposed(by: disposeBag)
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "AppDetailSG", let app = sender as? App {
+      let appDateilViewController = segue.destination as! AppDetailViewController
+      appDateilViewController.reactor = AppDetailViewReactor(app: app)
+    }
   }
 }

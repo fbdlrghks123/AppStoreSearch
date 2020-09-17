@@ -15,7 +15,7 @@ final class RecentSearchCell: BaseTableViewCell, View {
   }
   
   private let underLine = UIView().then {
-    $0.backgroundColor = .systemGroupedBackground
+    $0.backgroundColor = .systemGray6
   }
   
   
@@ -24,17 +24,17 @@ final class RecentSearchCell: BaseTableViewCell, View {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: .value1, reuseIdentifier: reuseIdentifier)
     selectionStyle = .none
-    addSubview(titleLabel)
-    addSubview(underLine)
-    setupConstraints()
+    addSubview(self.titleLabel)
+    addSubview(self.underLine)
+    self.setupConstraints()
   }
   
   func bind(reactor: RecentSearchCellReactor) {
     let isRecentSearch = reactor.currentState.isRecentSearch
     
-    titleLabel.textColor = isRecentSearch ? .black : .systemBlue
+    self.titleLabel.textColor = isRecentSearch ? .black : .systemBlue
     
-    titleLabel.snp.makeConstraints {
+    self.titleLabel.snp.makeConstraints {
       $0.top.equalTo(isRecentSearch ? 20 : 10)
       $0.leading.equalTo(20)
       $0.bottom.equalTo(-10)
@@ -42,12 +42,12 @@ final class RecentSearchCell: BaseTableViewCell, View {
     
     reactor.state
       .map { $0.title }
-      .bind(to: titleLabel.rx.text)
+      .bind(to: self.titleLabel.rx.text)
       .disposed(by: disposeBag)
   }
   
   private func setupConstraints() {
-    underLine.snp.makeConstraints {
+    self.underLine.snp.makeConstraints {
       $0.leading.equalTo(20)
       $0.trailing.bottom.equalToSuperview()
       $0.height.equalTo(1)

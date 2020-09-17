@@ -18,7 +18,7 @@ final class RecentSearchCellReactor: Reactor {
   var initialState: State
   
   init(model: RecentSearchModel, isRecentSearch: Bool = false) {
-    initialState = State(title: model.text,
-                         isRecentSearch: isRecentSearch)
+    self.initialState = State(title: model.text,
+                              isRecentSearch: isRecentSearch)
   }
 }

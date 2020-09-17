@@ -61,7 +61,7 @@ final class AppListCell: BaseTableViewCell, View {
   // MARK: Property
   
   var screenshotImageViews: [UIImageView] {
-      return screenshotStackView.arrangedSubviews as! [UIImageView]
+      return self.screenshotStackView.arrangedSubviews as! [UIImageView]
   }
   
   
@@ -70,39 +70,39 @@ final class AppListCell: BaseTableViewCell, View {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: .value1, reuseIdentifier: reuseIdentifier)
     selectionStyle = .none
-    setupConstraints()
+    self.setupConstraints()
   }
   
   private func setupConstraints() {
-    addSubview(iconImageView)
-    addSubview(getButton)
-    addSubview(descriptionStackView)
-    addSubview(screenshotStackView)
+    addSubview(self.iconImageView)
+    addSubview(self.getButton)
+    addSubview(self.descriptionStackView)
+    addSubview(self.screenshotStackView)
     
-    descriptionStackView.addArrangedSubview(nameLabel)
-    descriptionStackView.addArrangedSubview(genreLabel)
-    descriptionStackView.addArrangedSubview(UIView())
+    self.descriptionStackView.addArrangedSubview(self.nameLabel)
+    self.descriptionStackView.addArrangedSubview(self.genreLabel)
+    self.descriptionStackView.addArrangedSubview(UIView())
     
-    iconImageView.snp.makeConstraints {
+    self.iconImageView.snp.makeConstraints {
       $0.top.equalTo(20)
       $0.leading.equalTo(20)
       $0.size.equalTo(CGSize(width: 60, height: 60))
     }
     
-    descriptionStackView.snp.makeConstraints {
+    self.descriptionStackView.snp.makeConstraints {
       $0.top.equalTo(20)
       $0.leading.equalTo(iconImageView.snp.trailing).offset(10)
       $0.trailing.equalTo(getButton.snp.leading).offset(-15)
     }
     
-    getButton.snp.makeConstraints {
+    self.getButton.snp.makeConstraints {
       $0.trailing.equalTo(-20)
-      $0.centerY.equalTo(descriptionStackView.snp.centerY)
+      $0.centerY.equalTo(self.descriptionStackView.snp.centerY)
       $0.size.equalTo(CGSize(width: 65, height: 30))
     }
     
-    screenshotStackView.snp.makeConstraints {
-      $0.top.equalTo(iconImageView.snp.bottom).offset(18)
+    self.screenshotStackView.snp.makeConstraints {
+      $0.top.equalTo(self.iconImageView.snp.bottom).offset(18)
       $0.centerX.equalToSuperview()
       $0.bottom.equalTo(-20)
     }
@@ -112,17 +112,17 @@ final class AppListCell: BaseTableViewCell, View {
     // State
     reactor.state
       .map { $0.app.name }
-      .bind(to: nameLabel.rx.text)
+      .bind(to: self.nameLabel.rx.text)
       .disposed(by: disposeBag)
     
     reactor.state
       .map { $0.app.genre }
-      .bind(to: genreLabel.rx.text)
+      .bind(to: self.genreLabel.rx.text)
       .disposed(by: disposeBag)
     
     reactor.state
       .map { $0.app.icon }
-      .bind(to: iconImageView.rx.setImage)
+      .bind(to: self.iconImageView.rx.setImage)
       .disposed(by: disposeBag)
     
     reactor.state

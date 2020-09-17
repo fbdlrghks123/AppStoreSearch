@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    guard let window = window else { return false }
+    guard let window = self.window else { return false }
     
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let tabbarController = storyboard.instantiateViewController(identifier: "tabbarController") as! UITabBarController

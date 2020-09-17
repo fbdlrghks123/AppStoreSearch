@@ -1,12 +1,12 @@
 //
-//  AppListCellReactor.swift
+//  AppDetailViewReactor.swift
 //  AppStoreSearch
 //
-//  Created by Ickhwan Ryu on 2020/09/17.
+//  Created by RIH on 2020/09/17.
 //  Copyright © 2020 Ickhwan Ryu. All rights reserved.
 //
 
-final class AppListCellReactor: Reactor {
+final class AppDetailViewReactor: Reactor {
   typealias Action = NoAction
   
   struct State {

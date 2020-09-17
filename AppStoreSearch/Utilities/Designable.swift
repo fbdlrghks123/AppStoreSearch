@@ -22,36 +22,36 @@ extension UIView {
   @IBInspectable
   var cornerRadius: CGFloat {
     get {
-      return layer.cornerRadius
+      return self.layer.cornerRadius
     }
     set {
-      layer.cornerRadius = newValue
+      self.layer.cornerRadius = newValue
     }
   }
   
   @IBInspectable
   var borderWidth: CGFloat {
     get {
-      return layer.borderWidth
+      return self.layer.borderWidth
     }
     set {
-      layer.borderWidth = newValue
+      self.layer.borderWidth = newValue
     }
   }
   
   @IBInspectable
   var borderColor: UIColor? {
     get {
-      if let color = layer.borderColor {
+      if let color = self.layer.borderColor {
         return UIColor(cgColor: color)
       }
       return nil
     }
     set {
       if let color = newValue {
-        layer.borderColor = color.cgColor
+        self.layer.borderColor = color.cgColor
       } else {
-        layer.borderColor = nil
+        self.layer.borderColor = nil
       }
     }
   }
@@ -59,46 +59,46 @@ extension UIView {
   @IBInspectable
   var shadowRadius: CGFloat {
     get {
-      return layer.shadowRadius
+      return self.layer.shadowRadius
     }
     set {
-      layer.shadowRadius = newValue
+      self.layer.shadowRadius = newValue
     }
   }
   
   @IBInspectable
   var shadowOpacity: Float {
     get {
-      return layer.shadowOpacity
+      return self.layer.shadowOpacity
     }
     set {
-      layer.shadowOpacity = newValue
+      self.layer.shadowOpacity = newValue
     }
   }
   
   @IBInspectable
   var shadowOffset: CGSize {
     get {
-      return layer.shadowOffset
+      return self.layer.shadowOffset
     }
     set {
-      layer.shadowOffset = newValue
+      self.layer.shadowOffset = newValue
     }
   }
   
   @IBInspectable
   var shadowColor: UIColor? {
     get {
-      if let color = layer.shadowColor {
+      if let color = self.layer.shadowColor {
         return UIColor(cgColor: color)
       }
       return nil
     }
     set {
       if let color = newValue {
-        layer.shadowColor = color.cgColor
+        self.layer.shadowColor = color.cgColor
       } else {
-        layer.shadowColor = nil
+        self.layer.shadowColor = nil
       }
     }
   }
