@@ -66,18 +66,6 @@ final class SearchViewController: BaseViewController, View {
     
     
     // Action
-    self.searchBar.rx.text.orEmpty
-      .map { $0.isEmpty ? nil : $0 }
-      .map(Reactor.Action.recentSearchWord)
-      .bind(to: reactor.action)
-      .disposed(by: disposeBag)
-    
-    self.searchBar.rx.searchButtonClicked
-      .withLatestFrom(self.searchBar.rx.text.orEmpty)
-      .map(Reactor.Action.searchWord)
-      .bind(to: reactor.action)
-      .disposed(by: disposeBag)
-    
     self.searchBarController.rx.willPresent
       .map { true }
       .map(Reactor.Action.togglePresented)
@@ -87,6 +75,18 @@ final class SearchViewController: BaseViewController, View {
     self.searchBarController.rx.willDismiss
       .map { false }
       .map(Reactor.Action.togglePresented)
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
+    self.searchBar.rx.delegate.methodInvoked(#selector(UISearchBarDelegate.searchBar(_:textDidChange:)))
+      .map { [weak self] _ in self?.searchBar.text }
+      .map(Reactor.Action.recentSearchWord)
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
+    self.searchBar.rx.searchButtonClicked
+      .withLatestFrom(self.searchBar.rx.text.orEmpty)
+      .map(Reactor.Action.searchApp)
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Ickhwan Ryu. All rights reserved.
 //
 
-struct RecentSearchModel: Decodable, Equatable, IdentifiableType {
+struct RecentSearchModel {
   var identity: String {
     return "recentSearchModel"
   }

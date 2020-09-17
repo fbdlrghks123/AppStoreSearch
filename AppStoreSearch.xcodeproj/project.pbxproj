@@ -21,6 +21,10 @@
 		D31DCAE42511FE71006DA08E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D31DCAE22511FE71006DA08E /* Main.storyboard */; };
 		D31DCAE62511FE73006DA08E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D31DCAE52511FE73006DA08E /* Assets.xcassets */; };
 		D31DCAE92511FE73006DA08E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D31DCAE72511FE73006DA08E /* LaunchScreen.storyboard */; };
+		D36F57652512EE9E0099AEBD /* AppStoreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F57642512EE9E0099AEBD /* AppStoreAPI.swift */; };
+		D36F57682512EF120099AEBD /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F57672512EF120099AEBD /* Network.swift */; };
+		D36F576A2512F49C0099AEBD /* APIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F57692512F49C0099AEBD /* APIType.swift */; };
+		D36F576C2512F81B0099AEBD /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F576B2512F81B0099AEBD /* AppModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +47,10 @@
 		D31DCAE52511FE73006DA08E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D31DCAE82511FE73006DA08E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D31DCAEA2511FE73006DA08E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D36F57642512EE9E0099AEBD /* AppStoreAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreAPI.swift; sourceTree = "<group>"; };
+		D36F57672512EF120099AEBD /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		D36F57692512F49C0099AEBD /* APIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIType.swift; sourceTree = "<group>"; };
+		D36F576B2512F81B0099AEBD /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,15 +97,19 @@
 			isa = PBXGroup;
 			children = (
 				D3054BBD2512159E000AEE7F /* RecentSearchModel.swift */,
+				D36F576B2512F81B0099AEBD /* AppModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		D3054BBC251210BD000AEE7F /* System */ = {
+		D3054BBC251210BD000AEE7F /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				D36F57662512EECA0099AEBD /* APIs */,
+				D36F57692512F49C0099AEBD /* APIType.swift */,
+				D36F57672512EF120099AEBD /* Network.swift */,
 			);
-			path = System;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		D3054BBF2512166B000AEE7F /* Sections */ = {
@@ -131,7 +143,7 @@
 			children = (
 				0C22FABF251229FD001C9287 /* View */,
 				D3054BBF2512166B000AEE7F /* Sections */,
-				D3054BBC251210BD000AEE7F /* System */,
+				D3054BBC251210BD000AEE7F /* Networking */,
 				D3054BBB251210B8000AEE7F /* Model */,
 				D31DCAF02511FEC5006DA08E /* ViewControllers */,
 				D31DCADC2511FE71006DA08E /* AppDelegate.swift */,
@@ -152,6 +164,14 @@
 				D3054BB525120CB0000AEE7F /* SearchViewReactor.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D36F57662512EECA0099AEBD /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				D36F57642512EE9E0099AEBD /* AppStoreAPI.swift */,
+			);
+			path = APIs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,13 +272,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36F576A2512F49C0099AEBD /* APIType.swift in Sources */,
 				0C22FAC525122BFC001C9287 /* RecentSearchCellReactor.swift in Sources */,
 				0C22FAC325122BCC001C9287 /* BaseTableViewCell.swift in Sources */,
+				D36F57682512EF120099AEBD /* Network.swift in Sources */,
 				D3054BB2251204D7000AEE7F /* SearchViewController.swift in Sources */,
 				0C22FAC125122A19001C9287 /* RecentSearchCell.swift in Sources */,
 				D3054BB425120BC6000AEE7F /* BaseViewController.swift in Sources */,
+				D36F576C2512F81B0099AEBD /* AppModel.swift in Sources */,
 				D3054BC1251216AD000AEE7F /* RecentSearchSection.swift in Sources */,
 				D3054BBE2512159E000AEE7F /* RecentSearchModel.swift in Sources */,
+				D36F57652512EE9E0099AEBD /* AppStoreAPI.swift in Sources */,
 				0C22FAC825123C4B001C9287 /* RecentSearchHeaderCell.swift in Sources */,
 				D31DCADD2511FE71006DA08E /* AppDelegate.swift in Sources */,
 				D3054BB625120CB0000AEE7F /* SearchViewReactor.swift in Sources */,

@@ -8,7 +8,7 @@
 
 final class SearchViewReactor: Reactor {
   enum Action {
-    case searchWord(String)
+    case searchApp(String)
     case recentSearchWord(String?)
     case togglePresented(Bool)
   }
@@ -20,16 +20,14 @@ final class SearchViewReactor: Reactor {
   
   struct State {
     var sections: [RecentSearchSection] = []
-    
-    var presented: Bool = false
   }
   
   var initialState = State()
   
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
-    case .searchWord(let text):
-      return searchWord(text: text)
+    case .searchApp(let text):
+      return searchApp(text: text)
       
     case .recentSearchWord(let text):
       return .just(.recentSearchWord(text))
@@ -44,11 +42,10 @@ final class SearchViewReactor: Reactor {
     
     switch mutation {
     case .togglePresented(let flag):
-      newState.presented = flag
-      newState.sections = flag ? [] : loadRecentList()
+      newState.sections = flag ? [] : loadRecentList(presneted: false)
       
     case .recentSearchWord(let text):
-      newState.sections = loadRecentList(searchWord: text)
+      newState.sections = loadRecentList(presneted: true, searchWord: text)
     }
     
     return newState
@@ -56,32 +53,36 @@ final class SearchViewReactor: Reactor {
 }
 
 extension SearchViewReactor {
-  private func searchWord(text: String) -> Observable<Mutation> {
+  private func searchApp(text: String) -> Observable<Mutation> {
     var recentSearchList = UserDefaults.standard.stringArray(forKey: "recentSearchList") ?? []
     recentSearchList.append(text)
-    
     UserDefaults.standard.set(recentSearchList, forKey: "recentSearchList")
-    // 최근 검색 결과 내에서 리스팅해야함
+    AppStoreApi.search(str: text).request(type: AppModel.self)
+      .onResponse({ model in
+        
+      }, onError: { error in
+        print(error)
+      })
+
     return .empty()
   }
   
-  private func loadRecentList(searchWord: String? = nil) -> [RecentSearchSection] {
+  private func loadRecentList(presneted: Bool = false, searchWord: String? = nil) -> [RecentSearchSection] {
     var section: [RecentSearchSection] = []
     var items: [RecentSearchItem] = []
     
-    if !currentState.presented {
+    if !presneted {
       items.append(.header)
     }
-    
     if let recentSearchList = UserDefaults.standard.stringArray(forKey: "recentSearchList") {
-      if let searchWord = searchWord, currentState.presented {
+      if let searchWord = searchWord, presneted {
         recentSearchList
           .filter { $0.lowercased().contains(searchWord.lowercased()) }
           .forEach {
             let reactor = RecentSearchCellReactor(model: RecentSearchModel(text: $0), isRecentSearch: true)
             items.append(.item(reactor))
         }
-      } else if !currentState.presented {
+      } else if !presneted {
         recentSearchList
           .reversed()
           .forEach {
@@ -90,9 +91,7 @@ extension SearchViewReactor {
         }
       }
     }
-    
     section.append(.section(items))
-    
     return section
   }
 }
