@@ -14,6 +14,7 @@
 		0CA9E1CD251399CD00ACBAB7 /* AppDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9E1CC251399CD00ACBAB7 /* AppDetailViewController.swift */; };
 		0CA9E1CF251399DD00ACBAB7 /* AppDetailViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9E1CE251399DD00ACBAB7 /* AppDetailViewReactor.swift */; };
 		0CA9E1D12513A17000ACBAB7 /* UITableView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9E1D02513A17000ACBAB7 /* UITableView+Rx.swift */; };
+		0CA9E1D32513A92400ACBAB7 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9E1D22513A92400ACBAB7 /* Int+Extension.swift */; };
 		1FDFB69F2B12569344F4FE4F /* libPods-AppStoreSearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E9F0D5C5C6050DBF51A408 /* libPods-AppStoreSearch.a */; };
 		D3054BB2251204D7000AEE7F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3054BB1251204D7000AEE7F /* SearchViewController.swift */; };
 		D3054BB425120BC6000AEE7F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3054BB325120BC6000AEE7F /* BaseViewController.swift */; };
@@ -44,6 +45,7 @@
 		0CA9E1CC251399CD00ACBAB7 /* AppDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailViewController.swift; sourceTree = "<group>"; };
 		0CA9E1CE251399DD00ACBAB7 /* AppDetailViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailViewReactor.swift; sourceTree = "<group>"; };
 		0CA9E1D02513A17000ACBAB7 /* UITableView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Rx.swift"; sourceTree = "<group>"; };
+		0CA9E1D22513A92400ACBAB7 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		43E9F0D5C5C6050DBF51A408 /* libPods-AppStoreSearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppStoreSearch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5714AAAD1589F4E34A5FCDCE /* Pods-AppStoreSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreSearch.release.xcconfig"; path = "Target Support Files/Pods-AppStoreSearch/Pods-AppStoreSearch.release.xcconfig"; sourceTree = "<group>"; };
 		9B17762637AB78BE7E8C29B6 /* Pods-AppStoreSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreSearch.debug.xcconfig"; path = "Target Support Files/Pods-AppStoreSearch/Pods-AppStoreSearch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				D36F5777251336630099AEBD /* UIColor+Extension.swift */,
 				D36F57792513515F0099AEBD /* Array+SafeIndex.swift */,
 				0CA9E1D02513A17000ACBAB7 /* UITableView+Rx.swift */,
+				0CA9E1D22513A92400ACBAB7 /* Int+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				D36F57682512EF120099AEBD /* Network.swift in Sources */,
 				D3054BB2251204D7000AEE7F /* SearchViewController.swift in Sources */,
 				D36F577425130D5F0099AEBD /* Designable.swift in Sources */,
+				0CA9E1D32513A92400ACBAB7 /* Int+Extension.swift in Sources */,
 				0C22FAC125122A19001C9287 /* RecentSearchCell.swift in Sources */,
 				D3054BB425120BC6000AEE7F /* BaseViewController.swift in Sources */,
 				D36F576C2512F81B0099AEBD /* AppModel.swift in Sources */,

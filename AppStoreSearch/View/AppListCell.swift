@@ -27,14 +27,34 @@ final class AppListCell: BaseTableViewCell, View {
   }
   
   private let genreLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 14, weight: .light)
+    $0.font = .systemFont(ofSize: 13, weight: .light)
     $0.textColor = .systemGray
+  }
+  
+  private let ratingParentView = UIView()
+  
+  private let ratingView = CosmosView().then {
+    $0.settings.fillMode = .precise
+    $0.settings.filledColor = .systemGray
+    $0.settings.emptyBorderWidth = 1
+    $0.settings.emptyBorderColor = .systemGray
+    $0.settings.filledBorderWidth = 1
+    $0.settings.filledBorderColor = .systemGray
+    $0.settings.starMargin = 0
+    $0.settings.starSize = 15
+    $0.settings.disablePanGestures = true
+    $0.settings.updateOnTouch = false
+  }
+  
+  private let ratingLabel = UILabel().then {
+    $0.font = .systemFont(ofSize: 12)
+    $0.textColor = .systemGray3
   }
   
   private let getButton = UIButton(type: .custom).then {
     $0.cornerRadius = 15
     $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
-    $0.setTitle("GET", for: .normal)
+    $0.setTitle("받기", for: .normal)
     $0.setTitleColor(.systemBlue, for: .normal)
     $0.backgroundColor = .fromRed(238, green: 241, blue: 249)
   }
@@ -79,14 +99,26 @@ final class AppListCell: BaseTableViewCell, View {
     addSubview(self.descriptionStackView)
     addSubview(self.screenshotStackView)
     
+    self.ratingParentView.addSubview(self.ratingView)
+    self.ratingParentView.addSubview(self.ratingLabel)
+    
     self.descriptionStackView.addArrangedSubview(self.nameLabel)
     self.descriptionStackView.addArrangedSubview(self.genreLabel)
-    self.descriptionStackView.addArrangedSubview(UIView())
+    self.descriptionStackView.addArrangedSubview(self.ratingParentView)
     
     self.iconImageView.snp.makeConstraints {
       $0.top.equalTo(20)
       $0.leading.equalTo(20)
       $0.size.equalTo(CGSize(width: 60, height: 60))
+    }
+    
+    self.ratingView.snp.makeConstraints {
+      $0.top.leading.bottom.equalToSuperview()
+    }
+    
+    self.ratingLabel.snp.makeConstraints {
+      $0.leading.equalTo(self.ratingView.snp.trailing).offset(3)
+      $0.centerY.equalTo(self.ratingView.snp.centerY)
     }
     
     self.descriptionStackView.snp.makeConstraints {
@@ -123,6 +155,19 @@ final class AppListCell: BaseTableViewCell, View {
     reactor.state
       .map { $0.app.icon }
       .bind(to: self.iconImageView.rx.setImage)
+      .disposed(by: disposeBag)
+    
+    reactor.state
+      .map { $0.app.averageRating }
+      .subscribe(onNext: { [weak self] rating in
+        self?.ratingView.rating = rating
+      })
+      .disposed(by: disposeBag)
+    
+    reactor.state
+      .map { $0.app.totalRatingCount }
+      .map { $0.ratingString }
+      .bind(to: ratingLabel.rx.text)
       .disposed(by: disposeBag)
     
     reactor.state

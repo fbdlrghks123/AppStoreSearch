@@ -11,3 +11,4 @@
 @import RxViewController;
 @import RxDataSources;
 @import SnapKit;
+@import Cosmos;
