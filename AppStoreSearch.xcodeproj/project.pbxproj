@@ -170,8 +170,8 @@
 				D3054BBB251210B8000AEE7F /* Model */,
 				D31DCAF02511FEC5006DA08E /* ViewControllers */,
 				D31DCAE22511FE71006DA08E /* Main.storyboard */,
-				D31DCAE52511FE73006DA08E /* Assets.xcassets */,
 				D31DCAE72511FE73006DA08E /* LaunchScreen.storyboard */,
+				D31DCAE52511FE73006DA08E /* Assets.xcassets */,
 				D31DCAEA2511FE73006DA08E /* Info.plist */,
 				D3054BB725120F4A000AEE7F /* AppStoreSearch-Bridging-Header.h */,
 			);

@@ -6,17 +6,16 @@ target 'AppStoreSearch' do
 # Architecture
   pod 'ReactorKit'
 
+  
 # Rx
   pod 'Then'
-
-# Util
   pod 'RxSwift'
   pod 'RxCocoa'
-
-  pod 'ReactorKit'
   pod 'RxDataSources'
   pod 'RxViewController'
-
+  
+  
 # UI
-  pod 'SnapKit'
+  pod 'Cosmos'
+  pod 'SnapKit'  
 end

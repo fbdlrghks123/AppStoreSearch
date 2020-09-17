@@ -1,4 +1,5 @@
 PODS:
+  - Cosmos (22.1.0)
   - Differentiator (4.0.1)
   - ReactorKit (2.1.0):
     - RxSwift (~> 5.0)
@@ -21,6 +22,7 @@ PODS:
   - WeakMapTable (1.1.0)
 
 DEPENDENCIES:
+  - Cosmos
   - ReactorKit
   - RxCocoa
   - RxDataSources
@@ -31,6 +33,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Cosmos
     - Differentiator
     - ReactorKit
     - RxCocoa
@@ -43,6 +46,7 @@ SPEC REPOS:
     - WeakMapTable
 
 SPEC CHECKSUMS:
+  Cosmos: 2795b36ad4bbea1af3050d6d65576ed63875f86a
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   ReactorKit: 12a93358c554bb3f167b16b14c40374fa9cd5acd
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
@@ -54,6 +58,6 @@ SPEC CHECKSUMS:
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   WeakMapTable: d0327eda092be6a8f7c532942ae98dc7948f5d32
 
-PODFILE CHECKSUM: 22b5e59ba2228b85de56e8aef8f843f7e4668a28
+PODFILE CHECKSUM: ff345860a73e43d12797e86adce386c4bbe1498c
 
 COCOAPODS: 1.9.1
