@@ -27,10 +27,10 @@ final class AppDetailViewController: BaseViewController, View {
   
   
   // MARK: Property
-  
-  private lazy var dataSource: RxTableViewSectionedReloadDataSource<AppDetailSection> = { this in
+  private func dataSource(this: AppDetailViewController)
+    -> RxTableViewSectionedReloadDataSource<AppDetailSection> {
     return RxTableViewSectionedReloadDataSource<AppDetailSection>(
-      configureCell: { (ds, tableView, index, item) in
+      configureCell: { [weak self] (ds, tableView, index, item) in
         switch item {
         case .topView(let reactor):
           let cell = tableView.dequeue(Reusable.detailTopViewCell, for: index)
@@ -38,7 +38,7 @@ final class AppDetailViewController: BaseViewController, View {
           return cell
         case .whatsNew(let reactor):
           let cell = tableView.dequeue(Reusable.detailWhatsNewCell, for: index)
-          this.whatsNewCellBind(subject: cell.readMoreSubject)
+          self?.whatsNewCellBind(subject: cell.readMoreSubject)
           cell.reactor = reactor
           return cell
         case .preview(let reactor):
@@ -48,7 +48,7 @@ final class AppDetailViewController: BaseViewController, View {
         }
       }
     )
-  }(self)
+  }
   
   private func setupConstraints() {
     view.addSubview(tableView)
@@ -72,7 +72,7 @@ final class AppDetailViewController: BaseViewController, View {
     // State
     reactor.state
       .map { $0.section }
-      .bind(to: tableView.rx.items(dataSource: self.dataSource))
+      .bind(to: tableView.rx.items(dataSource: self.dataSource(this: self)))
       .disposed(by: disposeBag)
   }
   

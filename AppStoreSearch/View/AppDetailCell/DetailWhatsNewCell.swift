@@ -20,9 +20,7 @@ final class DetailWhatsNewCell: BaseTableViewCell, View {
   
   let readMoreSubject = PublishSubject<Void>()
   
-  
   func bind(reactor: DetailWhatsNewCellReactor) {
-    
     // Action
     self.readMoreButton.rx.tap
       .do(onNext: { [weak self] _ in

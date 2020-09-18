@@ -11,11 +11,8 @@ class BaseViewController: UIViewController {
   // MARK: RX
   
   var disposeBag = DisposeBag()
-}
-
-class BaseTableViewController: UITableViewController {
   
-  // MARK: RX
-  
-  var disposeBag = DisposeBag()
+  deinit {
+    print("deinit \(self)")
+  }
 }
