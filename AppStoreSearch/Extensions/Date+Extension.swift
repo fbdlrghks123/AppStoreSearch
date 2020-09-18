@@ -18,6 +18,7 @@ extension Date {
   static func stringToDate(_ dateString: String, dateFormat: String) -> Date? {
     let dateFormatter = DateFormatter().then {
       $0.dateFormat = dateFormat
+      $0.timeZone = .current
     }
     return dateFormatter.date(from: dateString)
   }

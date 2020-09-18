@@ -51,6 +51,11 @@
                             <constraint firstAttribute="height" constant="1" id="ECD-s5-voW"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2L-TI-WBb">
+                        <rect key="frame" x="225" y="372" width="22" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" title="Button" image="magnifyingglass" catalog="system"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="YN5-J6-Obz" firstAttribute="top" secondItem="lsH-TT-5IA" secondAttribute="bottom" constant="20" id="4xQ-Bc-T0N"/>
@@ -70,10 +75,11 @@
             <connections>
                 <outlet property="collectionView" destination="1xu-zc-8Q8" id="TsX-aF-Wj8"/>
             </connections>
-            <point key="canvasLocation" x="212.31884057971016" y="83.370535714285708"/>
+            <point key="canvasLocation" x="212.31884057971016" y="83.035714285714278"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="phone" width="11" height="18"/>
     </resources>
 </document>

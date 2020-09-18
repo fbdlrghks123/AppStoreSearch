@@ -79,10 +79,13 @@ final class SearchViewController: BaseViewController, View {
       .disposed(by: disposeBag)
     
     self.tableView.rx.itemSelected(dataSource: self.dataSource)
+      .observeOn(MainScheduler.instance)
       .subscribe(onNext: { [weak self] sectionItem in
         switch sectionItem {
-        case .item:
-          break
+        case .item(let reactor):
+          self?.searchBar.endEditing(true)
+          self?.searchBarController.isActive = true
+          self?.reactor?.action.onNext(Reactor.Action.searchApp(reactor.currentState.title))
         case .app(let appReactor):
           self?.performSegue(withIdentifier: "AppDetailSG", sender: appReactor.currentState.app)
         default:
