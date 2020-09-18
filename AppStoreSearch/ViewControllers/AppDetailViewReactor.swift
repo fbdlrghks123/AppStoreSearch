@@ -69,6 +69,7 @@ extension AppDetailViewReactor {
     
     sectionItems.append(.topView(DetailTopViewCellReactor(app: app)))
     sectionItems.append(.whatsNew(DetailWhatsNewCellReactor(app: app)))
+    sectionItems.append(.preview(DetailPreviewCellReactor(app: app)))
     
     return [.section(sectionItems)]
   }

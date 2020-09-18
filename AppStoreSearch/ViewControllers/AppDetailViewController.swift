@@ -13,6 +13,7 @@ final class AppDetailViewController: BaseViewController, View {
   fileprivate struct Reusable {
     static let detailTopViewCell = ReuseCell<DetailTopViewCell>()
     static let detailWhatsNewCell = ReuseCell<DetailWhatsNewCell>()
+    static let detailPreviewCell = ReuseCell<DetailPreviewCell>()
   }
   
   
@@ -21,6 +22,7 @@ final class AppDetailViewController: BaseViewController, View {
   private let tableView = UITableView().then {
     $0.register(Reusable.detailTopViewCell)
     $0.register(Reusable.detailWhatsNewCell)
+    $0.register(Reusable.detailPreviewCell)
   }
   
   
@@ -39,6 +41,10 @@ final class AppDetailViewController: BaseViewController, View {
           this.whatsNewCellBind(subject: cell.readMoreSubject)
           cell.reactor = reactor
           return cell
+        case .preview(let reactor):
+           let cell = tableView.dequeue(Reusable.detailPreviewCell, for: index)
+           cell.reactor = reactor
+           return cell
         }
       }
     )

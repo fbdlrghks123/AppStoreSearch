@@ -27,6 +27,7 @@ extension AppDetailSection: SectionModelType {
 enum AppDetailItem {
   case topView(DetailTopViewCellReactor)
   case whatsNew(DetailWhatsNewCellReactor)
+  case preview(DetailPreviewCellReactor)
 }
 
 extension AppDetailItem {
@@ -36,6 +37,8 @@ extension AppDetailItem {
       return reactor.currentState.app
     case .whatsNew(let reactor):
       return reactor.currentState.app
+    case .preview:
+      fatalError()
     }
   }
 }

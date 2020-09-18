@@ -1,13 +1,13 @@
 //
-//  BaseTableViewCell.swift
+//  BaseCollectionViewCell.swift
 //  AppStoreSearch
 //
-//  Created by RIH on 2020/09/16.
+//  Created by RIH on 2020/09/18.
 //  Copyright © 2020 Ickhwan Ryu. All rights reserved.
 //
 
-class BaseTableViewCell: UITableViewCell {
-  
+class BaseCollectionViewCell: UICollectionViewCell {
+   
   // MARK: Rx
   
   var disposeBag = DisposeBag()
