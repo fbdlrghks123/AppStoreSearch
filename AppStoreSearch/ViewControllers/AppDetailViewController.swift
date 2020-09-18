@@ -6,27 +6,77 @@
 //  Copyright © 2020 Ickhwan Ryu. All rights reserved.
 //
 
-final class AppDetailViewController: BaseViewController, StoryboardView {
+final class AppDetailViewController: BaseViewController, View {
   
-  @IBOutlet weak var iconImageView: UIImageView!
-  @IBOutlet weak var nameLabel: UILabel!
-  @IBOutlet weak var genreLabel: UILabel!
+  // MARK: Constants
+
+  fileprivate struct Reusable {
+    static let detailTopViewCell = ReuseCell<DetailTopViewCell>()
+    static let detailWhatsNewCell = ReuseCell<DetailWhatsNewCell>()
+  }
+  
+  
+  // MARK: UI
+  
+  private let tableView = UITableView().then {
+    $0.register(Reusable.detailTopViewCell)
+    $0.register(Reusable.detailWhatsNewCell)
+  }
+  
+  
+  // MARK: Property
+  
+  private lazy var dataSource: RxTableViewSectionedReloadDataSource<AppDetailSection> = { this in
+    return RxTableViewSectionedReloadDataSource<AppDetailSection>(
+      configureCell: { (ds, tableView, index, item) in
+        switch item {
+        case .topView(let reactor):
+          let cell = tableView.dequeue(Reusable.detailTopViewCell, for: index)
+          cell.reactor = reactor
+          return cell
+        case .whatsNew(let reactor):
+          let cell = tableView.dequeue(Reusable.detailWhatsNewCell, for: index)
+          this.whatsNewCellBind(subject: cell.readMoreSubject)
+          cell.reactor = reactor
+          return cell
+        }
+      }
+    )
+  }(self)
+  
+  private func setupConstraints() {
+    view.addSubview(tableView)
+    
+    self.tableView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+  }
   
   func bind(reactor: AppDetailViewReactor) {
+    // Input
+    rx.viewDidLoad
+      .do(onNext: { [weak self] in
+        self?.tableView.separatorStyle = .none
+        self?.setupConstraints()
+      })
+      .map { Reactor.Action.requestDetail }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
     // State
     reactor.state
-      .map { $0.app.icon }
-      .bind(to: self.iconImageView.rx.setImage)
+      .map { $0.section }
+      .bind(to: tableView.rx.items(dataSource: self.dataSource))
       .disposed(by: disposeBag)
-    
-    reactor.state
-      .map { $0.app.name }
-      .bind(to: self.nameLabel.rx.text)
-      .disposed(by: disposeBag)
-    
-    reactor.state
-      .map { $0.app.name }
-      .bind(to: self.genreLabel.rx.text)
+  }
+  
+  private func whatsNewCellBind(subject: PublishSubject<Void>) {
+    subject.observeOn(MainScheduler.instance)
+      .do(onNext: { [weak self] in
+        self?.tableView.reloadData()
+      })
+      .map { Reactor.Action.updateWhatsAppCell }
+      .bind(to: reactor!.action)
       .disposed(by: disposeBag)
   }
 }

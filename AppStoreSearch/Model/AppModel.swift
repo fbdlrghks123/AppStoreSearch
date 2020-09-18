@@ -19,6 +19,10 @@ final class App: Decodable {
   var totalRatingCount: Int
   var averageRating: Double
   var bundleId: String
+  var trackContentRating: String
+  var version: String
+  var releaseDate: String
+  var releaseNotes: String
   
   enum CodingKeys: String, CodingKey {
     case name = "trackName"
@@ -28,5 +32,9 @@ final class App: Decodable {
     case totalRatingCount = "userRatingCount"
     case averageRating = "averageUserRating"
     case bundleId = "bundleId"
+    case trackContentRating = "trackContentRating"
+    case version = "version"
+    case releaseDate = "releaseDate"
+    case releaseNotes = "releaseNotes"
   }
 }

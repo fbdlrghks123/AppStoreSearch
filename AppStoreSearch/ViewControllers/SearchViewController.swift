@@ -7,7 +7,16 @@
 //
 
 final class SearchViewController: BaseViewController, View {
+  
+  // MARK: Constants
 
+  private struct Reusable {
+    static let recentSearchCell = ReuseCell<RecentSearchCell>()
+    static let recentSearchHeaderCell = ReuseCell<RecentSearchHeaderCell>()
+    static let appListCell = ReuseCell<AppListCell>()
+  }
+
+  
   // MARK: UI
   
   private let searchBarController = UISearchController(searchResultsController: nil).then {
@@ -20,9 +29,9 @@ final class SearchViewController: BaseViewController, View {
   }
   
   private let tableView = UITableView().then {
-    $0.register(RecentSearchCell.self, forCellReuseIdentifier: RecentSearchCell.defaultIdentifier)
-    $0.register(RecentSearchHeaderCell.self, forCellReuseIdentifier: RecentSearchHeaderCell.defaultIdentifier)
-    $0.register(AppListCell.self, forCellReuseIdentifier: AppListCell.defaultIdentifier)
+    $0.register(Reusable.recentSearchCell)
+    $0.register(Reusable.recentSearchHeaderCell)
+    $0.register(Reusable.appListCell)
   }
   
   
@@ -33,14 +42,14 @@ final class SearchViewController: BaseViewController, View {
       configureCell: { (ds, tableView, index, item) -> UITableViewCell in
         switch item {
         case .header:
-          let cell = RecentSearchHeaderCell(style: .default, reuseIdentifier: RecentSearchHeaderCell.defaultIdentifier)
+          let cell = tableView.dequeue(Reusable.recentSearchHeaderCell, for: index)
           return cell
         case .item(let reactor):
-          let cell = RecentSearchCell(style: .default, reuseIdentifier: RecentSearchCell.defaultIdentifier)
+          let cell = tableView.dequeue(Reusable.recentSearchCell, for: index)
           cell.reactor = reactor
           return cell
         case .app(let reactor):
-          let cell = AppListCell(style: .default, reuseIdentifier: AppListCell.defaultIdentifier)
+          let cell = tableView.dequeue(Reusable.appListCell, for: index)
           cell.reactor = reactor
           return cell
         }
@@ -82,7 +91,6 @@ final class SearchViewController: BaseViewController, View {
       })
       .disposed(by: disposeBag)
     
-    
     // Action
     self.searchBarController.rx.willPresent
       .map { true }
@@ -108,7 +116,6 @@ final class SearchViewController: BaseViewController, View {
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
-    
     // State
     reactor.state
       .map { $0.sections }
@@ -119,7 +126,7 @@ final class SearchViewController: BaseViewController, View {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "AppDetailSG", let app = sender as? App {
       let appDateilViewController = segue.destination as! AppDetailViewController
-      appDateilViewController.reactor = AppDetailViewReactor(app: app)
+      appDateilViewController.reactor = AppDetailViewReactor(bundleId: app.bundleId)
     }
   }
 }
