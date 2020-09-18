@@ -18,11 +18,11 @@ final class App: Decodable {
   var screenshots: [String]
   var totalRatingCount: Int
   var averageRating: Double
-  var bundleId: String
-  var trackContentRating: String
-  var version: String
-  var releaseDate: String
-  var releaseNotes: String
+  var bundleId: String?
+  var trackContentRating: String?
+  var version: String?
+  var releaseDate: String?
+  var releaseNotes: String?
   
   enum CodingKeys: String, CodingKey {
     case name = "trackName"

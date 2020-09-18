@@ -37,7 +37,7 @@ final class RecentSearchCell: BaseTableViewCell, View {
   func bind(reactor: RecentSearchCellReactor) {
     let isRecentSearch = reactor.currentState.isRecentSearch
     
-    self.titleLabel.textColor = isRecentSearch ? .black : .systemBlue
+    self.titleLabel.textColor = isRecentSearch ? .label : .systemBlue
     
     self.titleLabel.snp.makeConstraints {
       $0.top.equalTo(isRecentSearch ? 20 : 10)

@@ -35,7 +35,7 @@ final class DetailWhatsNewCell: BaseTableViewCell, View {
     // State
     reactor.state
       .map { $0.app.version }
-      .map { "버전 \($0)" }
+      .map { "버전 \($0 ?? "")" }
       .bind(to: self.versionLabel.rx.text)
       .disposed(by: disposeBag)
     
@@ -57,7 +57,7 @@ final class DetailWhatsNewCell: BaseTableViewCell, View {
           .foregroundColor : UIColor.label,
           .paragraphStyle : paragraphyStyle
         ]
-        return NSAttributedString(string: $0, attributes: attributes)
+        return NSAttributedString(string: $0 ?? "", attributes: attributes)
       }
       .bind(to: self.releaseNoteLabel.rx.attributedText)
       .disposed(by: disposeBag)

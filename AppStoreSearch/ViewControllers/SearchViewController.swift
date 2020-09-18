@@ -126,7 +126,7 @@ final class SearchViewController: BaseViewController, View {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "AppDetailSG", let app = sender as? App {
       let appDateilViewController = segue.destination as! AppDetailViewController
-      appDateilViewController.reactor = AppDetailViewReactor(bundleId: app.bundleId)
+      appDateilViewController.reactor = AppDetailViewReactor(bundleId: app.bundleId ?? "")
     }
   }
 }
