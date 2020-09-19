@@ -23,6 +23,8 @@ final class App: Decodable {
   var version: String?
   var releaseDate: String?
   var releaseNotes: String?
+  var description: String?
+  var sellerName: String?
   
   enum CodingKeys: String, CodingKey {
     case name = "trackName"
@@ -36,5 +38,7 @@ final class App: Decodable {
     case version = "version"
     case releaseDate = "releaseDate"
     case releaseNotes = "releaseNotes"
+    case description = "description"
+    case sellerName = "sellerName"
   }
 }

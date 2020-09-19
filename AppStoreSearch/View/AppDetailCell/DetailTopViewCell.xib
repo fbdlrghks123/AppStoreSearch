@@ -135,7 +135,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dav-2A-Rai">
-                        <rect key="frame" x="0.0" y="220" width="352" height="1"/>
+                        <rect key="frame" x="20" y="220" width="332" height="1"/>
                         <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Bxg-e1-Nfn"/>

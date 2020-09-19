@@ -12,7 +12,6 @@ class DetailPreviewCollectionCell: BaseCollectionViewCell, View {
   
   @IBOutlet weak var screenshotImageView: UIImageView!
   
-  
   func bind(reactor: DetailPreviewCollectionViewCellReactor) {
     // State
     reactor.state

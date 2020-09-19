@@ -14,6 +14,7 @@ final class AppDetailViewController: BaseViewController, View {
     static let detailTopViewCell = ReuseCell<DetailTopViewCell>()
     static let detailWhatsNewCell = ReuseCell<DetailWhatsNewCell>()
     static let detailPreviewCell = ReuseCell<DetailPreviewCell>()
+    static let detailDescCell = ReuseCell<DetailDescCell>()
   }
   
   
@@ -23,28 +24,37 @@ final class AppDetailViewController: BaseViewController, View {
     $0.register(Reusable.detailTopViewCell)
     $0.register(Reusable.detailWhatsNewCell)
     $0.register(Reusable.detailPreviewCell)
+    $0.register(Reusable.detailDescCell)
   }
   
   
   // MARK: Property
-  private func dataSource(this: AppDetailViewController)
-    -> RxTableViewSectionedReloadDataSource<AppDetailSection> {
-    return RxTableViewSectionedReloadDataSource<AppDetailSection>(
-      configureCell: { [weak self] (ds, tableView, index, item) in
+  private var dataSource: RxTableViewSectionedAnimatedDataSource<AppDetailSectionType> {
+    return RxTableViewSectionedAnimatedDataSource<AppDetailSectionType>(
+      animationConfiguration: .init(insertAnimation: .automatic,
+                                    reloadAnimation: .automatic,
+                                    deleteAnimation: .none),
+      decideViewTransition: { _, _, _ in .reload },
+      configureCell: { (ds, tableView, index, item) in
         switch item {
-        case .topView(let reactor):
+        case .topView(_, let reactor):
           let cell = tableView.dequeue(Reusable.detailTopViewCell, for: index)
           cell.reactor = reactor
           return cell
-        case .whatsNew(let reactor):
-          let cell = tableView.dequeue(Reusable.detailWhatsNewCell, for: index)
-          self?.whatsNewCellBind(subject: cell.readMoreSubject)
+        case .whatsNew(_, let reactor):
+          let cell = tableView.dequeue(Reusable.detailWhatsNewCell, for: index).then {
+            $0.settingReleaseNoteLine(readMore: reactor.currentState.readMore)
+          }
           cell.reactor = reactor
           return cell
-        case .preview(let reactor):
+        case .preview(_, let reactor):
            let cell = tableView.dequeue(Reusable.detailPreviewCell, for: index)
            cell.reactor = reactor
            return cell
+        case .desc(_, let reactor):
+          let cell = tableView.dequeue(Reusable.detailDescCell, for: index)
+          cell.reactor = reactor
+          return cell
         }
       }
     )
@@ -59,8 +69,14 @@ final class AppDetailViewController: BaseViewController, View {
   }
   
   func bind(reactor: AppDetailViewReactor) {
+    // Action
+    tableView.rx.modelSelected(AppDetailItem<String>.self)
+      .map(Reactor.Action.updateSection)
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
     // Input
-    rx.viewDidLoad
+    self.rx.viewDidLoad
       .do(onNext: { [weak self] in
         self?.tableView.separatorStyle = .none
         self?.setupConstraints()
@@ -72,17 +88,7 @@ final class AppDetailViewController: BaseViewController, View {
     // State
     reactor.state
       .map { $0.section }
-      .bind(to: tableView.rx.items(dataSource: self.dataSource(this: self)))
-      .disposed(by: disposeBag)
-  }
-  
-  private func whatsNewCellBind(subject: PublishSubject<Void>) {
-    subject.observeOn(MainScheduler.instance)
-      .do(onNext: { [weak self] in
-        self?.tableView.reloadData()
-      })
-      .map { Reactor.Action.updateWhatsAppCell }
-      .bind(to: reactor!.action)
+      .bind(to: tableView.rx.items(dataSource: self.dataSource))
       .disposed(by: disposeBag)
   }
 }

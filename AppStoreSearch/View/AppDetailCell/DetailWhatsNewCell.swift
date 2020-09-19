@@ -13,25 +13,18 @@ final class DetailWhatsNewCell: BaseTableViewCell, View {
   @IBOutlet weak var versionLabel: UILabel!
   @IBOutlet weak var releaseTimeLabel: UILabel!
   @IBOutlet weak var releaseNoteLabel: UILabel!
-  @IBOutlet weak var readMoreButton: UIButton!
+  @IBOutlet weak var readmoreLabel: UILabel!
   
   
   // MARK: Property
   
   let readMoreSubject = PublishSubject<Void>()
   
+  func settingReleaseNoteLine(readMore: Bool) {
+    releaseNoteLabel.numberOfLines = readMore ? 0 : 3
+  }
+  
   func bind(reactor: DetailWhatsNewCellReactor) {
-    // Action
-    self.readMoreButton.rx.tap
-      .do(onNext: { [weak self] _ in
-        self?.releaseNoteLabel.numberOfLines = 0
-        self?.readMoreSubject.onNext(())
-      })
-      .map { Reactor.Action.toggleReadMore }
-      .bind(to: reactor.action)
-      .disposed(by: disposeBag)
-    
-    
     // State
     reactor.state
       .map { $0.app.version }
@@ -47,24 +40,13 @@ final class DetailWhatsNewCell: BaseTableViewCell, View {
       .disposed(by: disposeBag)
     
     reactor.state
-      .map { $0.app.releaseNotes }
-      .map {
-        let paragraphyStyle = NSMutableParagraphStyle().then {
-          $0.lineSpacing = 5
-        }
-        let attributes: [NSAttributedString.Key: Any] = [
-          .font : UIFont.systemFont(ofSize: 14),
-          .foregroundColor : UIColor.label,
-          .paragraphStyle : paragraphyStyle
-        ]
-        return NSAttributedString(string: $0 ?? "", attributes: attributes)
-      }
+      .map { $0.app.releaseNotes?.attributeString }
       .bind(to: self.releaseNoteLabel.rx.attributedText)
       .disposed(by: disposeBag)
     
     reactor.state
       .map { $0.readMore }
-      .bind(to: self.readMoreButton.rx.isHidden)
+      .bind(to: self.readmoreLabel.rx.isHidden)
       .disposed(by: disposeBag)
   }
 }
