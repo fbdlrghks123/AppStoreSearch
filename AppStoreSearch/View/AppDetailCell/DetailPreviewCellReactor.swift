@@ -21,6 +21,6 @@ final class DetailPreviewCellReactor: Reactor {
       return .image(reactor)
     }
     
-    initialState = State(sections: [.section(items)])
+    self.initialState = State(sections: [.section(items)])
   }
 }

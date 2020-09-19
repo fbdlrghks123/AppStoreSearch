@@ -16,6 +16,6 @@ final class DetailPreviewCollectionViewCellReactor: Reactor {
   var initialState: State
   
   init(url: String) {
-    initialState = State(url: url)
+    self.initialState = State(url: url)
   }
 }

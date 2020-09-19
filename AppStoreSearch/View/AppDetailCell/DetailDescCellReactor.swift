@@ -11,11 +11,12 @@ final class DetailDescCellReactor: Reactor {
   
   struct State {
     var app: App
+    var readMore: Bool
   }
   
   var initialState: State
   
-  init(app: App) {
-    initialState = State(app: app)
+  init(app: App, readMore: Bool = false) {
+    self.initialState = State(app: app, readMore: readMore)
   }
 }

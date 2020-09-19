@@ -16,6 +16,6 @@ final class DetailTopViewCellReactor: Reactor {
   var initialState: State
   
   init(app: App) {
-    initialState = State(app: app)
+    self.initialState = State(app: app)
   }
 }

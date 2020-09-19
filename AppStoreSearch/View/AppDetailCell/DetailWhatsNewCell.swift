@@ -16,10 +16,6 @@ final class DetailWhatsNewCell: BaseTableViewCell, View {
   @IBOutlet weak var readmoreLabel: UILabel!
   
   
-  // MARK: Property
-  
-  let readMoreSubject = PublishSubject<Void>()
-  
   func settingReleaseNoteLine(readMore: Bool) {
     releaseNoteLabel.numberOfLines = readMore ? 0 : 3
   }

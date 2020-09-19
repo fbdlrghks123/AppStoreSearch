@@ -21,3 +21,7 @@ extension Int {
     return "\(self)"
   }
 }
+
+extension NSNumber {
+  var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
+}

@@ -12,7 +12,11 @@ final class DetailDescCell: BaseTableViewCell, View {
   
   @IBOutlet weak var descriptionLabel: UILabel!
   @IBOutlet weak var sellerNameLabel: UILabel!
+  @IBOutlet weak var readMoreLabel: UILabel!
   
+  func settingReleaseNoteLine(readMore: Bool) {
+    self.descriptionLabel.numberOfLines = readMore ? 0 : 3
+  }
   
   func bind(reactor: DetailDescCellReactor) {
     // action
@@ -24,6 +28,11 @@ final class DetailDescCell: BaseTableViewCell, View {
     reactor.state
       .map { $0.app.sellerName }
       .bind(to: self.sellerNameLabel.rx.text)
+      .disposed(by: disposeBag)
+    
+    reactor.state
+      .map { $0.readMore }
+      .bind(to: self.readMoreLabel.rx.isHidden)
       .disposed(by: disposeBag)
   }
 }

@@ -52,7 +52,9 @@ final class AppDetailViewController: BaseViewController, View {
            cell.reactor = reactor
            return cell
         case .desc(_, let reactor):
-          let cell = tableView.dequeue(Reusable.detailDescCell, for: index)
+          let cell = tableView.dequeue(Reusable.detailDescCell, for: index).then {
+            $0.settingReleaseNoteLine(readMore: reactor.currentState.readMore)
+          }
           cell.reactor = reactor
           return cell
         }

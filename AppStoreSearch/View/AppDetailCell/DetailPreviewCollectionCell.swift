@@ -12,11 +12,12 @@ class DetailPreviewCollectionCell: BaseCollectionViewCell, View {
   
   @IBOutlet weak var screenshotImageView: UIImageView!
   
+  
   func bind(reactor: DetailPreviewCollectionViewCellReactor) {
     // State
     reactor.state
       .map { $0.url }
-      .bind(to: screenshotImageView.rx.setImage)
+      .bind(to: self.screenshotImageView.rx.setImage)
       .disposed(by: disposeBag)
   }
 }

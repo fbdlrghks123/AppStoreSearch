@@ -98,7 +98,3 @@ extension APIType {
       return string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? string
   }
 }
-
-extension NSNumber {
-  var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
-}

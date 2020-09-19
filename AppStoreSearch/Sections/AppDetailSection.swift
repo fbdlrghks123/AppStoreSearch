@@ -68,7 +68,9 @@ extension AppDetailItem: Equatable, IdentifiableType {
       return reactor.currentState.app
     case .whatsNew(_, let reactor):
       return reactor.currentState.app
-    case .preview, .desc:
+    case .desc(_, let reactor):
+      return reactor.currentState.app
+    case .preview:
       fatalError()
     }
   }

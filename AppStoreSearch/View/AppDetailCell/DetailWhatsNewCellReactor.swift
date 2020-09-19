@@ -41,6 +41,6 @@ final class DetailWhatsNewCellReactor: Reactor {
   }
   
   init(app: App, readMore: Bool = false) {
-    initialState = State(app: app, readMore: readMore)
+    self.initialState = State(app: app, readMore: readMore)
   }
 }

@@ -47,24 +47,23 @@ final class AppDetailViewReactor: Reactor {
       newState.error = response.fail
     
     case .updateSection(let selectedItem):
+      guard var currentSectionItem = currentState.section.first?.items,
+        let index = currentSectionItem.firstIndex(of: selectedItem),
+        let model = currentSectionItem[safe: index]?.model else { return newState }
+      
+      currentSectionItem.remove(at: index)
+      
       switch selectedItem {
-      case .whatsNew(_, _):
-        guard var currentSectionItem = currentState.section.first?.items else { fatalError() }
-        guard let model = currentSectionItem[safe: 1]?.model else { fatalError() }
+      case .whatsNew:
         let newReactor = DetailWhatsNewCellReactor(app: model, readMore: true)
-        
-        currentSectionItem.remove(at: 1)
-        currentSectionItem.insert(AppDetailItem<String>.whatsNew(UUID.string, newReactor), at: 1)
-        newState.section = [.section(0, currentSectionItem)]
-//      if let currentSections = newState.section.first, let app = currentSections.items[safe: 1]?.model {
-//        var items = currentSections.items
-//        let reactor = DetailWhatsNewCellReactor(app: app, readMore: true)
-//        items.remove(at: 1)
-//        items.insert(.whatsNew("1", reactor), at: 1)
-//        newState.section = [.section(0, items)]
+        currentSectionItem.insert(.whatsNew(UUID.string, newReactor), at: index)
+      case .desc:
+        let newReactor = DetailDescCellReactor(app: model, readMore: true)
+        currentSectionItem.insert(.desc(UUID.string, newReactor), at: index)
       default:
         break
       }
+      newState.section = [.section(0, currentSectionItem)]
     }
     
     return newState
