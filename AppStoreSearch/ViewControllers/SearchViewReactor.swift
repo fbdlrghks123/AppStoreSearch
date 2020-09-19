@@ -73,13 +73,18 @@ final class SearchViewReactor: Reactor {
 
 extension SearchViewReactor {
   private func saveWord(text: String) -> Observable<Mutation> {
-    let recentSearchList = UserDefaults.standard.stringArray(forKey: "recentSearchList") ?? []
-    var recentSearchSet = Set<String>(recentSearchList)
-    recentSearchSet.update(with: text)
+    var recentSearchList = UserDefaults.standard.stringArray(forKey: "recentSearchList") ?? []
     
-    let newList: [String] = Array(recentSearchSet)
+    if let index = recentSearchList.firstIndex(where: { $0 == text }) {
+      recentSearchList.remove(at: index)
+    }
     
-    UserDefaults.standard.set(newList, forKey: "recentSearchList")
+    if recentSearchList.count >= 10 {
+      recentSearchList.removeFirst()
+    }
+    
+    recentSearchList.append(text)
+    UserDefaults.standard.set(recentSearchList, forKey: "recentSearchList")
     
     return .empty()
   }
