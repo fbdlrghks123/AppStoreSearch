@@ -13,7 +13,7 @@ class DetailPreviewCollectionCell: BaseCollectionViewCell, View {
   @IBOutlet weak var screenshotImageView: UIImageView!
   
   
-  func bind(reactor: DetailPreviewCollectionViewCellReactor) {
+  func bind(reactor: DetailPreviewCollectionCellReactor) {
     // State
     reactor.state
       .map { $0.url }

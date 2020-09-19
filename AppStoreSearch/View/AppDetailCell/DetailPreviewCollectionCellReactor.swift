@@ -1,12 +1,12 @@
 //
-//  DetailPreviewCollectionViewCellReactor.swift
+//  DetailPreviewCollectionCellReactor.swift
 //  AppStoreSearch
 //
 //  Created by RIH on 2020/09/18.
 //  Copyright © 2020 Ickhwan Ryu. All rights reserved.
 //
 
-final class DetailPreviewCollectionViewCellReactor: Reactor {
+final class DetailPreviewCollectionCellReactor: Reactor {
   typealias Action = NoAction
   
   struct State {

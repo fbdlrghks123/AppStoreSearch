@@ -17,7 +17,7 @@ final class DetailPreviewCellReactor: Reactor {
   
   init(app: App) {
     let items = app.screenshots.map { url -> AppDetailPreviewItem in
-      let reactor = DetailPreviewCollectionViewCellReactor(url: url)
+      let reactor = DetailPreviewCollectionCellReactor(url: url)
       return .image(reactor)
     }
     

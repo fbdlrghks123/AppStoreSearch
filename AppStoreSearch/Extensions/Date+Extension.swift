@@ -26,39 +26,40 @@ extension Date {
   static func timeAgoSince(_ date: Date?) -> String {
     guard let date = date else { return "" }
     
+    let nowDate = Date()
     let calendar = Calendar.current
-    let now = Date()
-    let unitFlags: NSCalendar.Unit = [.second, .minute, .hour, .day, .weekOfYear, .month, .year]
-    let components = (calendar as NSCalendar).components(unitFlags, from: date, to: now, options: [])
+    let units: NSCalendar.Unit = [.second, .minute, .hour, .day, .weekOfYear, .month, .year]
+    let components = (calendar as NSCalendar)
+      .components(units, from: date, to: nowDate, options: [])
     
     if let year = components.year, year >= 1 {
-      return "\(year)\(NSLocalizedString("년 전", comment: ""))"
+      return "\(year)년 전"
     }
     
     if let month = components.month, month >= 1 {
-      return "\(month)\(NSLocalizedString("개월 전", comment: ""))"
+      return "\(month)개월 전"
     }
     
     if let week = components.weekOfYear, week >= 1 {
-      return "\(week)\(NSLocalizedString("주 전", comment: ""))"
+      return "\(week)주 전"
     }
     
     if let day = components.day, day >= 1 {
-      return "\(day)\(NSLocalizedString("일 전", comment: ""))"
+      return "\(day)일 전"
     }
     
     if let hour = components.hour, hour >= 1 {
-      return "\(hour)\(NSLocalizedString("시간 전", comment: ""))"
+      return "\(hour)시간 전"
     }
     
     if let minute = components.minute, minute >= 1 {
-      return "\(minute)\(NSLocalizedString("분 전", comment: ""))"
+      return "\(minute)분 전"
     }
     
     if let second = components.second, second >= 3 {
-      return "\(second)\(NSLocalizedString("초 전", comment: ""))"
+      return "\(second)초 전"
     }
     
-    return NSLocalizedString("지금", comment: "")
+    return "방금 전"
   }
 }

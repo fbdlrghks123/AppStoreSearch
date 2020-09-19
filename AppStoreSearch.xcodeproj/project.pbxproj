@@ -25,7 +25,7 @@
 		0CB063F12514D3D6000D31CC /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB063F02514D3D6000D31CC /* BaseCollectionViewCell.swift */; };
 		0CCBE04C2514DDCB00FB5409 /* DetailPreviewCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCBE04A2514DDCB00FB5409 /* DetailPreviewCollectionCell.swift */; };
 		0CCBE04D2514DDCB00FB5409 /* DetailPreviewCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CCBE04B2514DDCB00FB5409 /* DetailPreviewCollectionCell.xib */; };
-		0CCBE04F2514DDE100FB5409 /* DetailPreviewCollectionViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCBE04E2514DDE100FB5409 /* DetailPreviewCollectionViewCellReactor.swift */; };
+		0CCBE04F2514DDE100FB5409 /* DetailPreviewCollectionCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCBE04E2514DDE100FB5409 /* DetailPreviewCollectionCellReactor.swift */; };
 		0CCBE0512514E00000FB5409 /* AppDetailPreviewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCBE0502514E00000FB5409 /* AppDetailPreviewSection.swift */; };
 		1FDFB69F2B12569344F4FE4F /* libPods-AppStoreSearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E9F0D5C5C6050DBF51A408 /* libPods-AppStoreSearch.a */; };
 		D3054BB2251204D7000AEE7F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3054BB1251204D7000AEE7F /* SearchViewController.swift */; };
@@ -77,7 +77,7 @@
 		0CB063F02514D3D6000D31CC /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		0CCBE04A2514DDCB00FB5409 /* DetailPreviewCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPreviewCollectionCell.swift; sourceTree = "<group>"; };
 		0CCBE04B2514DDCB00FB5409 /* DetailPreviewCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailPreviewCollectionCell.xib; sourceTree = "<group>"; };
-		0CCBE04E2514DDE100FB5409 /* DetailPreviewCollectionViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPreviewCollectionViewCellReactor.swift; sourceTree = "<group>"; };
+		0CCBE04E2514DDE100FB5409 /* DetailPreviewCollectionCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPreviewCollectionCellReactor.swift; sourceTree = "<group>"; };
 		0CCBE0502514E00000FB5409 /* AppDetailPreviewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailPreviewSection.swift; sourceTree = "<group>"; };
 		43E9F0D5C5C6050DBF51A408 /* libPods-AppStoreSearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppStoreSearch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5714AAAD1589F4E34A5FCDCE /* Pods-AppStoreSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreSearch.release.xcconfig"; path = "Target Support Files/Pods-AppStoreSearch/Pods-AppStoreSearch.release.xcconfig"; sourceTree = "<group>"; };
@@ -290,7 +290,7 @@
 				0CB063EE2514CDA9000D31CC /* DetailPreviewCellReactor.swift */,
 				0CB063EB2514CD85000D31CC /* DetailPreviewCell.xib */,
 				0CCBE04A2514DDCB00FB5409 /* DetailPreviewCollectionCell.swift */,
-				0CCBE04E2514DDE100FB5409 /* DetailPreviewCollectionViewCellReactor.swift */,
+				0CCBE04E2514DDE100FB5409 /* DetailPreviewCollectionCellReactor.swift */,
 				0CCBE04B2514DDCB00FB5409 /* DetailPreviewCollectionCell.xib */,
 				0C060E742515E1EB00398D0D /* DetailDescCell.swift */,
 				0C060E782515E1FB00398D0D /* DetailDescCellReactor.swift */,
@@ -405,7 +405,7 @@
 				D38048DE2514401E00034654 /* AppDetailSection.swift in Sources */,
 				D36F577025130B580099AEBD /* AppListCellReactor.swift in Sources */,
 				D38048F2251486E100034654 /* DetailWhatsNewCellReactor.swift in Sources */,
-				0CCBE04F2514DDE100FB5409 /* DetailPreviewCollectionViewCellReactor.swift in Sources */,
+				0CCBE04F2514DDE100FB5409 /* DetailPreviewCollectionCellReactor.swift in Sources */,
 				D38048EC25146F0700034654 /* ReuseCell.swift in Sources */,
 				D36F5778251336630099AEBD /* UIColor+Extension.swift in Sources */,
 				D36F576A2512F49C0099AEBD /* APIType.swift in Sources */,

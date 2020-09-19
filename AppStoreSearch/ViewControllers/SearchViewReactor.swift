@@ -78,14 +78,8 @@ extension SearchViewReactor {
     if let index = recentSearchList.firstIndex(where: { $0 == text }) {
       recentSearchList.remove(at: index)
     }
-    
-    if recentSearchList.count >= 10 {
-      recentSearchList.removeFirst()
-    }
-    
     recentSearchList.append(text)
     UserDefaults.standard.set(recentSearchList, forKey: "recentSearchList")
-    
     return .empty()
   }
   
@@ -105,12 +99,11 @@ extension SearchViewReactor {
             items.append(.item(reactor))
         }
       } else if !presneted {
-        recentSearchList
-          .reversed()
+        recentSearchList.reversed().enumerated().filter { $0.offset < 10 }
           .forEach {
-            let reactor = RecentSearchCellReactor(model: RecentSearchModel(text: $0))
+            let reactor = RecentSearchCellReactor(model: RecentSearchModel(text: $0.element))
             items.append(.item(reactor))
-        }
+          }
       }
     }
     section.append(.section(items))

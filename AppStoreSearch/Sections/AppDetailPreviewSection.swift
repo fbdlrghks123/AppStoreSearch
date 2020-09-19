@@ -25,5 +25,5 @@ extension AppDetailPreviewSection: SectionModelType {
 }
 
 enum AppDetailPreviewItem {
-  case image(DetailPreviewCollectionViewCellReactor)
+  case image(DetailPreviewCollectionCellReactor)
 }
