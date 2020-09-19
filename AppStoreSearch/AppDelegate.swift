@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let tabbarController = storyboard.instantiateViewController(identifier: "tabbarController") as! UITabBarController
+    tabbarController.selectedIndex = 4
     
     if let navigationController = tabbarController.viewControllers?.last as? UINavigationController,
       let searchViewController = navigationController.visibleViewController as? SearchViewController {
