@@ -24,4 +24,16 @@ extension String {
     ]
     return NSAttributedString(string: self, attributes: attributes)
   }
+  
+  func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+    let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+    let boundingBox = self.boundingRect(
+      with: constraintRect,
+      options: .usesLineFragmentOrigin,
+      attributes: [NSAttributedString.Key.font: font],
+      context: nil)
+    
+    return CGFloat(boundingBox.height)
+  }
+  
 }

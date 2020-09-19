@@ -44,5 +44,14 @@ final class DetailWhatsNewCell: BaseTableViewCell, View {
       .map { $0.readMore }
       .bind(to: self.readmoreLabel.rx.isHidden)
       .disposed(by: disposeBag)
+    
+    reactor.state
+      .take(1)
+      .map { [weak self] _ in
+        Reactor.Action.calculationHeight(height: self?.releaseNoteLabel.frame.height)
+      }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
   }
 }

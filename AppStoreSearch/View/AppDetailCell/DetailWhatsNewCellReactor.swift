@@ -9,6 +9,7 @@
 final class DetailWhatsNewCellReactor: Reactor {
   enum Action {
     case toggleReadMore
+    case calculationHeight(height: CGFloat?)
   }
   
   enum Mutation {
@@ -26,6 +27,15 @@ final class DetailWhatsNewCellReactor: Reactor {
     switch action {
     case .toggleReadMore:
       return .just(.toggleReadMore)
+    case .calculationHeight(let height):
+      guard let height = height else { return .empty()}
+      guard let releaseNotes = currentState.app.releaseNotes else { return .empty() }
+      let textHeight = releaseNotes.height(withConstrainedWidth: height,
+                                         font: UIFont.systemFont(ofSize: 14.0))
+      if textHeight < height {
+        return .just(.toggleReadMore)
+      }
+      return .empty()
     }
   }
   

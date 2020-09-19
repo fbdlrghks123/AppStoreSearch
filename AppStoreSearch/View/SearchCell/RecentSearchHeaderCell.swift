@@ -21,8 +21,8 @@ final class RecentSearchHeaderCell: BaseTableViewCell, View {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    selectionStyle = .none
-    addSubview(self.titleLabel)
+    self.selectionStyle = .none
+    self.addSubview(self.titleLabel)
     self.setupConstraints()
   }
   
