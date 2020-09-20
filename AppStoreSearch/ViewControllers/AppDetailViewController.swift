@@ -75,9 +75,15 @@ final class AppDetailViewController: BaseViewController, View {
   
   func bind(reactor: AppDetailViewReactor) {
     // Action
-    tableView.rx.modelSelected(AppDetailItem<String>.self)
+    self.tableView.rx.modelSelected(AppDetailItem<String>.self)
       .map(Reactor.Action.updateSection)
       .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
+    self.tableView.rx.didScroll
+      .subscribe(onNext: { _ in
+        
+      })
       .disposed(by: disposeBag)
     
     // Input

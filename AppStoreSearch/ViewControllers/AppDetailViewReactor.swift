@@ -34,7 +34,7 @@ final class AppDetailViewReactor: Reactor {
         .map(Mutation.responseDetail)
     
     case .updateSection(let selectedItem):
-      return .just(.updateSection(selectedItem))
+      return checkNeedUpdate(item: selectedItem)
     }
   }
   
@@ -49,7 +49,6 @@ final class AppDetailViewReactor: Reactor {
     case .updateSection(let selectedItem):
       guard var currentSectionItem = currentState.section.first?.items,
         let index = currentSectionItem.firstIndex(of: selectedItem) else { return newState }
-      
       
       switch selectedItem {
       case .whatsNew:
@@ -77,7 +76,6 @@ final class AppDetailViewReactor: Reactor {
         default:
           break
         }
-        
       default:
         break
       }
@@ -90,6 +88,13 @@ final class AppDetailViewReactor: Reactor {
   
   init(bundleId: String) {
     self.initialState = State(bundleId: bundleId)
+  }
+}
+
+extension AppDetailViewReactor {
+  private func checkNeedUpdate(item: AppDetailItem<String>) -> Observable<Mutation> {
+    if item.isUnfold { return .empty() }
+    return .just(.updateSection(item))
   }
 }
 

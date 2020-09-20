@@ -85,4 +85,20 @@ extension AppDetailItem: Equatable, IdentifiableType {
       fatalError()
     }
   }
+  
+  var isUnfold: Bool {
+    switch self {
+    case .whatsNew(_, let reactor):
+      return reactor.currentState.readMore
+    case .desc(_, let reactor):
+      return reactor.currentState.readMore
+    case .expand(_, let reactor):
+      let type = reactor.currentState.type
+      if !type.isFoldingView { return true }
+      return !reactor.currentState.isFolding
+    default:
+      break
+    }
+    return true
+  }
 }

@@ -23,7 +23,7 @@ final class AppListCell: BaseTableViewCell, View {
   }
   
   private let nameLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 16)
+    $0.font = .systemFont(ofSize: 15)
   }
   
   private let genreLabel = UILabel().then {
@@ -52,11 +52,11 @@ final class AppListCell: BaseTableViewCell, View {
   }
   
   private let getButton = UIButton(type: .custom).then {
-    $0.cornerRadius = 15
-    $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+    $0.cornerRadius = 14
+    $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
     $0.setTitle("받기", for: .normal)
     $0.setTitleColor(.systemBlue, for: .normal)
-    $0.backgroundColor = .fromRed(238, green: 241, blue: 249)
+    $0.backgroundColor = .systemGray6
   }
   
   private let screenshotStackView = UIStackView().then { stackView in
@@ -129,13 +129,13 @@ final class AppListCell: BaseTableViewCell, View {
     self.descriptionStackView.snp.makeConstraints {
       $0.top.equalTo(20)
       $0.leading.equalTo(iconImageView.snp.trailing).offset(10)
-      $0.trailing.equalTo(getButton.snp.leading).offset(-15)
+      $0.trailing.equalTo(getButton.snp.leading).offset(-10)
     }
     
     self.getButton.snp.makeConstraints {
       $0.trailing.equalTo(-20)
       $0.centerY.equalTo(self.descriptionStackView.snp.centerY)
-      $0.size.equalTo(CGSize(width: 65, height: 30))
+      $0.size.equalTo(CGSize(width: 73, height: 28))
     }
     
     self.screenshotStackView.snp.makeConstraints {

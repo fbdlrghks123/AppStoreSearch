@@ -79,7 +79,7 @@
         <!--검색-->
         <scene sceneID="z37-6i-0Uh">
             <objects>
-                <navigationController id="hYO-pb-KcX" sceneMemberID="viewController">
+                <navigationController id="hYO-pb-KcX" customClass="BaseNavigationController" customModule="AppStoreSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="검색" image="magnifyingglass" catalog="system" id="Suo-ut-WWS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Fzw-Ta-jnE">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
