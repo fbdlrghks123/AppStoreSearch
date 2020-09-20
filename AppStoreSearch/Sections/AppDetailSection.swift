@@ -43,6 +43,7 @@ enum AppDetailItem<R: Hashable> {
   case whatsNew(R,DetailWhatsNewCellReactor)
   case preview(R,DetailPreviewCellReactor)
   case desc(R,DetailDescCellReactor)
+  case expand(R, DetailExpandCellReactor)
 }
 
 extension AppDetailItem: Equatable, IdentifiableType {
@@ -57,12 +58,13 @@ extension AppDetailItem: Equatable, IdentifiableType {
     case .topView(let identiry, _),
          .whatsNew(let identiry, _),
          .preview(let identiry, _),
-         .desc(let identiry, _):
+         .desc(let identiry, _),
+         .expand(let identiry, _):
       return identiry
     }
   }
   
-  var model: App {
+  var model: App? {
     switch self {
     case .topView(_, let reactor):
       return reactor.currentState.app
@@ -70,7 +72,16 @@ extension AppDetailItem: Equatable, IdentifiableType {
       return reactor.currentState.app
     case .desc(_, let reactor):
       return reactor.currentState.app
-    case .preview:
+    case .preview, .expand:
+      return nil
+    }
+  }
+  
+  var expandState: DetailExpandCellReactor.State {
+    switch self {
+      case .expand(_, let reactor):
+      return reactor.currentState
+    default:
       fatalError()
     }
   }

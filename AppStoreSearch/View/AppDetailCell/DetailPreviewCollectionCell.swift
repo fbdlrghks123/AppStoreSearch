@@ -6,7 +6,7 @@
 //  Copyright © 2020 Ickhwan Ryu. All rights reserved.
 //
 
-class DetailPreviewCollectionCell: BaseCollectionViewCell, View {
+final class DetailPreviewCollectionCell: BaseCollectionViewCell, View {
   
   // MARK: UI
   

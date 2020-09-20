@@ -48,7 +48,7 @@ final class DetailWhatsNewCell: BaseTableViewCell, View {
     reactor.state
       .take(1)
       .map { [weak self] _ in
-        Reactor.Action.calculationHeight(height: self?.releaseNoteLabel.frame.height)
+        Reactor.Action.calculationHeight(size: self?.releaseNoteLabel.frame.size)
       }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)

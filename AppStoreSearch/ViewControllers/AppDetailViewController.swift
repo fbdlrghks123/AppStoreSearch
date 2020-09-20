@@ -15,6 +15,7 @@ final class AppDetailViewController: BaseViewController, View {
     static let detailWhatsNewCell = ReuseCell<DetailWhatsNewCell>()
     static let detailPreviewCell = ReuseCell<DetailPreviewCell>()
     static let detailDescCell = ReuseCell<DetailDescCell>()
+    static let detailExpandCell = ReuseCell<DetailExpandCell>()
   }
   
   
@@ -25,6 +26,7 @@ final class AppDetailViewController: BaseViewController, View {
     $0.register(Reusable.detailWhatsNewCell)
     $0.register(Reusable.detailPreviewCell)
     $0.register(Reusable.detailDescCell)
+    $0.register(Reusable.detailExpandCell)
   }
   
   
@@ -52,6 +54,10 @@ final class AppDetailViewController: BaseViewController, View {
           let cell = tableView.dequeue(Reusable.detailDescCell, for: index).then {
             $0.settingReleaseNoteLine(readMore: reactor.currentState.readMore)
           }
+          cell.reactor = reactor
+          return cell
+        case .expand(_, let reactor):
+          let cell = tableView.dequeue(Reusable.detailExpandCell, for: index)
           cell.reactor = reactor
           return cell
         }

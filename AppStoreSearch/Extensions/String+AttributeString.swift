@@ -25,6 +25,17 @@ extension String {
     return NSAttributedString(string: self, attributes: attributes)
   }
   
+  var convertMB: String {
+      guard let bytes = Int64(self) else { return ""}
+      let formatter = ByteCountFormatter()
+      formatter.allowedUnits = ByteCountFormatter.Units.useMB
+      formatter.countStyle = ByteCountFormatter.CountStyle.binary
+      formatter.includesUnit = false
+      
+      let result = formatter.string(fromByteCount: bytes) as String
+      return "\(result)MB"
+  }
+  
   func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
     let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
     let boundingBox = self.boundingRect(
@@ -35,5 +46,27 @@ extension String {
     
     return CGFloat(boundingBox.height)
   }
-  
+}
+
+extension Array where Element == String {
+  func converLanguage() -> (subTitle: String, content: String) {
+    var titleResult: String = ""
+    var descResults: [String] = []
+    
+    let locale = NSLocale.autoupdatingCurrent
+    let languageCode = locale.languageCode!
+    for code in self {
+        let language = locale.localizedString(forLanguageCode: code)!
+        if languageCode.uppercased() == code {
+            titleResult = language
+        }
+        descResults.append(language)
+    }
+    
+    let descResultsCount: Int = descResults.count
+    let subTitle = (descResultsCount == 0) ? "\(titleResult)" : "\(titleResult)외 \(descResults.count)개"
+    let content = descResults.joined(separator: ", ")
+    
+    return (subTitle, content)
+  }
 }

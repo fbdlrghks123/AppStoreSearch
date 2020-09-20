@@ -48,21 +48,40 @@ final class AppDetailViewReactor: Reactor {
     
     case .updateSection(let selectedItem):
       guard var currentSectionItem = currentState.section.first?.items,
-        let index = currentSectionItem.firstIndex(of: selectedItem),
-        let model = currentSectionItem[safe: index]?.model else { return newState }
+        let index = currentSectionItem.firstIndex(of: selectedItem) else { return newState }
       
-      currentSectionItem.remove(at: index)
       
       switch selectedItem {
       case .whatsNew:
+        guard let model = currentSectionItem[safe: index]?.model else { return newState }
         let newReactor = DetailWhatsNewCellReactor(app: model, readMore: true)
         currentSectionItem.insert(.whatsNew(UUID.string, newReactor), at: index)
+        
       case .desc:
+        guard let model = currentSectionItem[safe: index]?.model else { return newState }
         let newReactor = DetailDescCellReactor(app: model, readMore: true)
         currentSectionItem.insert(.desc(UUID.string, newReactor), at: index)
+        
+      case .expand(_, let reactor):
+        let currentState = reactor.currentState
+        
+        switch currentState.type {
+        case .compatibility, .language, .age:
+          let newReactor = DetailExpandCellReactor(
+            type: currentState.type,
+            subTitle: currentState.subTitle,
+            content: currentState.content,
+            isFolding: false
+          )
+          currentSectionItem.insert(.expand(UUID.string, newReactor), at: index)
+        default:
+          break
+        }
+        
       default:
         break
       }
+      currentSectionItem.remove(at: index + 1)
       newState.section = [.section(0, currentSectionItem)]
     }
     
@@ -84,6 +103,45 @@ extension AppDetailViewReactor {
     sectionItems.append(.preview(UUID.string, DetailPreviewCellReactor(app: app)))
     sectionItems.append(.desc(UUID.string, DetailDescCellReactor(app: app)))
     
+    sectionItems += infoItems(app: app)
+    
     return [.section(0, sectionItems)]
+  }
+  
+  private func infoItems(app: App?) -> [AppDetailItem<String>] {
+    guard let app = app else { return [] }
+    var sectionItems: [AppDetailItem<String>] = []
+    
+    let sellerReactor = DetailExpandCellReactor(type: .seller, subTitle: app.sellerName)
+    sectionItems.append(.expand(UUID.string, sellerReactor))
+    
+    let appSizeReactor = DetailExpandCellReactor(type: .appSize, subTitle: app.fileSizeBytes?.convertMB)
+    sectionItems.append(.expand(UUID.string, appSizeReactor))
+    
+    let categoryReactor = DetailExpandCellReactor(type: .category, subTitle: app.genres?.first)
+    sectionItems.append(.expand(UUID.string, categoryReactor))
+    
+    let minimumOSMessage = "iOS \(app.minimumOsVersion) 버전 이상 필요"
+    let compatibilityReactor = DetailExpandCellReactor(type: .compatibility,
+                                                       subTitle: "이 iPhone와(과) 호환",
+                                                       content: minimumOSMessage)
+    sectionItems.append(.expand(UUID.string, compatibilityReactor))
+    
+    if let languages = app.languageCodesISO2A {
+      let convertLanguage = languages.converLanguage()
+      let compatibilityReactor = DetailExpandCellReactor(type: .language,
+                                                         subTitle: convertLanguage.subTitle,
+                                                         content: convertLanguage.content)
+      sectionItems.append(.expand(UUID.string, compatibilityReactor))
+    }
+    
+    let ageContent = "\(app.trackContentRating ?? "")\n" + (app.advisories ?? []).joined(separator: "\n")
+    let ageReactor = DetailExpandCellReactor(type: .age, subTitle: app.trackContentRating, content: ageContent)
+    sectionItems.append(.expand(UUID.string, ageReactor))
+    
+    let copyrightReactor = DetailExpandCellReactor(type: .copyright, subTitle: app.sellerName)
+    sectionItems.append(.expand(UUID.string, copyrightReactor))
+    
+    return sectionItems
   }
 }

@@ -7,8 +7,8 @@
 //
 
 final class AppResponse: Decodable {
-  var resultCount: Int
-  var results: [App]
+  let resultCount: Int
+  let results: [App]
 }
 
 final class App: Decodable {
@@ -25,6 +25,13 @@ final class App: Decodable {
   var releaseNotes: String?
   var description: String?
   var sellerName: String?
+  var fileSizeBytes: String?
+  var genres: [String]?
+  var supportedDevices: [String]?
+  var languageCodesISO2A: [String]?
+  var advisories: [String]?
+  var minimumOsVersion: String
+  
   
   enum CodingKeys: String, CodingKey {
     case name = "trackName"
@@ -40,5 +47,11 @@ final class App: Decodable {
     case releaseNotes = "releaseNotes"
     case description = "description"
     case sellerName = "sellerName"
+    case fileSizeBytes = "fileSizeBytes"
+    case genres = "genres"
+    case supportedDevices = "supportedDevices"
+    case languageCodesISO2A = "languageCodesISO2A"
+    case advisories = "advisories"
+    case minimumOsVersion = "minimumOsVersion"
   }
 }

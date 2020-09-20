@@ -8,6 +8,8 @@
 
 final class DetailTopViewCell: BaseTableViewCell, View {
   
+  // MARK: UI
+  
   @IBOutlet weak var appIconImageView: UIImageView!
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var genreLabel: UILabel!
