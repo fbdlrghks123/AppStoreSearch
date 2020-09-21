@@ -82,9 +82,11 @@ final class SearchViewController: BaseViewController, View {
       .subscribe(onNext: { [weak self] sectionItem in
         switch sectionItem {
         case .item(let reactor):
+          let searchText = reactor.currentState.title
           self?.searchBar.endEditing(true)
+          self?.searchBar.text = searchText
           self?.searchBarController.isActive = true
-          self?.reactor?.action.onNext(Reactor.Action.searchApp(reactor.currentState.title))
+          self?.reactor?.action.onNext(Reactor.Action.searchApp(searchText))
         case .app(let appReactor):
           self?.performSegue(withIdentifier: "AppDetailSG", sender: appReactor.currentState.app)
         default:

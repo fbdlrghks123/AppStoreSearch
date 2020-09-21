@@ -154,7 +154,7 @@ final class AppListCell: BaseTableViewCell, View {
       .disposed(by: disposeBag)
     
     reactor.state
-      .map { $0.app.genre }
+      .compactMap { $0.app.genres?.first }
       .bind(to: self.genreLabel.rx.text)
       .disposed(by: disposeBag)
     
