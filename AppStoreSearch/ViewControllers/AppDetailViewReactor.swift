@@ -51,17 +51,17 @@ final class AppDetailViewReactor: Reactor {
         let index = currentSectionItem.firstIndex(of: selectedItem) else { return newState }
       
       switch selectedItem {
-      case .whatsNew:
+      case .whatsNew(let uuid, _):
         guard let model = currentSectionItem[safe: index]?.model else { return newState }
         let newReactor = DetailWhatsNewCellReactor(app: model, readMore: true)
-        currentSectionItem.insert(.whatsNew(UUID.string, newReactor), at: index)
+        currentSectionItem[index] = .whatsNew(uuid, newReactor)
         
-      case .desc:
+      case .desc(let uuid, _):
         guard let model = currentSectionItem[safe: index]?.model else { return newState }
         let newReactor = DetailDescCellReactor(app: model, readMore: true)
-        currentSectionItem.insert(.desc(UUID.string, newReactor), at: index)
+        currentSectionItem[index] = .desc(uuid, newReactor)
         
-      case .expand(_, let reactor):
+      case .expand(let uuid, let reactor):
         let currentState = reactor.currentState
         
         switch currentState.type {
@@ -72,14 +72,14 @@ final class AppDetailViewReactor: Reactor {
             content: currentState.content,
             isFolding: false
           )
-          currentSectionItem.insert(.expand(UUID.string, newReactor), at: index)
+          currentSectionItem[index] = .expand(uuid, newReactor)
         default:
           break
         }
       default:
         break
       }
-      currentSectionItem.remove(at: index + 1)
+      
       newState.section = [.section(0, currentSectionItem)]
     }
     

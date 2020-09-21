@@ -8,6 +8,13 @@
 
 class BaseViewController: UIViewController {
   
+  // MARK: UI
+  
+  var navigation: BaseNavigationController? {
+    return self.navigationController as? BaseNavigationController
+  }
+  
+  
   // MARK: RX
   
   var disposeBag = DisposeBag()

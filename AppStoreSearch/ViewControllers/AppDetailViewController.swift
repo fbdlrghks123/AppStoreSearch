@@ -33,7 +33,8 @@ final class AppDetailViewController: BaseViewController, View {
   // MARK: Property
   private var dataSource: RxTableViewSectionedAnimatedDataSource<AppDetailSectionType> {
     return RxTableViewSectionedAnimatedDataSource<AppDetailSectionType>(
-      animationConfiguration: .init(insertAnimation: .fade, reloadAnimation: .none, deleteAnimation: .none),
+      animationConfiguration: .init(insertAnimation: .none, reloadAnimation: .fade, deleteAnimation: .right),
+      decideViewTransition: { (_, _, item) in return .animated },
       configureCell: { (ds, tableView, index, item) in
         switch item {
         case .topView(_, let reactor):

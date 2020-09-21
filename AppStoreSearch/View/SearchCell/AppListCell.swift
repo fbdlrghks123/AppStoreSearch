@@ -70,7 +70,7 @@ final class AppListCell: BaseTableViewCell, View {
         imageView.clipsToBounds = true
         imageView.borderColor = .lightGray
         imageView.snp.makeConstraints { make in
-          make.size.equalTo(CGSize(width: 100, height: 190))
+          make.size.equalTo(CGSize(width: (UIScreen.main.bounds.width - 60) / 3, height: 190))
         }
       }
       stackView.addArrangedSubview(imageView)
@@ -140,7 +140,8 @@ final class AppListCell: BaseTableViewCell, View {
     
     self.screenshotStackView.snp.makeConstraints {
       $0.top.equalTo(self.iconImageView.snp.bottom).offset(18)
-      $0.centerX.equalToSuperview()
+      $0.leading.equalTo(20)
+      $0.trailing.equalTo(-20)
       $0.bottom.equalTo(-20)
     }
   }

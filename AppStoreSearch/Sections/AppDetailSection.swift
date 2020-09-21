@@ -40,9 +40,9 @@ extension AppDetailSection: AnimatableSectionModelType, IdentifiableType {
 
 enum AppDetailItem<R: Hashable> {
   case topView(R, DetailTopViewCellReactor)
-  case whatsNew(R,DetailWhatsNewCellReactor)
-  case preview(R,DetailPreviewCellReactor)
-  case desc(R,DetailDescCellReactor)
+  case whatsNew(R, DetailWhatsNewCellReactor)
+  case preview(R, DetailPreviewCellReactor)
+  case desc(R, DetailDescCellReactor)
   case expand(R, DetailExpandCellReactor)
 }
 
@@ -50,7 +50,7 @@ extension AppDetailItem: Equatable, IdentifiableType {
   typealias Identity = R
   
   static func == (lhs: AppDetailItem<R>, rhs: AppDetailItem<R>) -> Bool {
-      return lhs.identity == rhs.identity
+    return lhs.identity == rhs.identity && lhs.isUnfold == rhs.isUnfold
   }
 
   var identity: R {
