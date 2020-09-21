@@ -66,15 +66,22 @@ final class AppDetailViewController: BaseViewController, View {
     )
   }
   
-  private func setupConstraints() {
+  override func setupConstraints() {
     view.addSubview(tableView)
     
+    self.tableView.separatorStyle = .none
     self.tableView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
   }
   
   func bind(reactor: AppDetailViewReactor) {
+    // Input
+    self.rx.viewDidLoad
+      .map { Reactor.Action.requestDetail }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
     // Action
     self.tableView.rx.modelSelected(AppDetailItem<String>.self)
       .map(Reactor.Action.updateSection)
@@ -82,19 +89,15 @@ final class AppDetailViewController: BaseViewController, View {
       .disposed(by: disposeBag)
     
     self.tableView.rx.didScroll
-      .subscribe(onNext: { _ in
+      .compactMap { reactor.currentState.model?.icon }
+      .subscribe(onNext: { [weak self] url in
+        guard let self = self else { return }
+        let posY: CGFloat = 44.0
+        let offsetY = self.tableView.contentOffset.y
         
+        if offsetY > posY { self.setNavigationItems(url: url) }
+        else { self.clearNavigationItem() }
       })
-      .disposed(by: disposeBag)
-    
-    // Input
-    self.rx.viewDidLoad
-      .do(onNext: { [weak self] in
-        self?.tableView.separatorStyle = .none
-        self?.setupConstraints()
-      })
-      .map { Reactor.Action.requestDetail }
-      .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
     // State

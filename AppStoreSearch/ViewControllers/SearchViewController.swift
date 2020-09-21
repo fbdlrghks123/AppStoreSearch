@@ -57,7 +57,7 @@ final class SearchViewController: BaseViewController, View {
     )
   }()
   
-  private func setupConstraints() {
+  override func setupConstraints() {
     view.addSubview(tableView)
     
     self.tableView.snp.makeConstraints {
@@ -72,7 +72,6 @@ final class SearchViewController: BaseViewController, View {
         self?.tableView.separatorStyle = .none
         self?.navigationItem.hidesSearchBarWhenScrolling = false
         self?.navigationItem.searchController = self?.searchBarController
-        self?.setupConstraints()
       })
       .map{ _ in Reactor.Action.togglePresented(false) }
       .bind(to: reactor.action)

@@ -12,7 +12,7 @@ final class DetailExpandCell: BaseTableViewCell, View {
   
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var subtitleLabel: UILabel!
-  @IBOutlet weak var arrowImageView: UIImageView! // 숨기는조건 폴딩이 펄스이거나 타입이 호환성아니고 연령등급아니면
+  @IBOutlet weak var arrowImageView: UIImageView!
   @IBOutlet weak var expandView: UIView!
   @IBOutlet weak var contentLabel: UILabel!
   

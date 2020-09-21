@@ -7,16 +7,16 @@
 //
 
 enum HTTPMethods : String {
-    case options    = "OPTIONS"
-    case get        = "GET"
-    case head       = "HEAD"
-    case post       = "POST"
-    case put        = "PUT"
-    case patch      = "PATCH"
-    case delete     = "DELETE"
-    case trace      = "TRACE"
-    case connect    = "CONNECT"
-    case multipart  = "MULTIPART"
+  case options    = "OPTIONS"
+  case get        = "GET"
+  case head       = "HEAD"
+  case post       = "POST"
+  case put        = "PUT"
+  case patch      = "PATCH"
+  case delete     = "DELETE"
+  case trace      = "TRACE"
+  case connect    = "CONNECT"
+  case multipart  = "MULTIPART"
 }
 
 protocol APIType {

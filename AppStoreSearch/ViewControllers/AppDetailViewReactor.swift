@@ -21,6 +21,7 @@ final class AppDetailViewReactor: Reactor {
     var bundleId: String
     var section: [AppDetailSectionType] = []
     
+    var model: App?
     var error: Error?
   }
   
@@ -44,6 +45,7 @@ final class AppDetailViewReactor: Reactor {
     switch mutation {
     case .responseDetail(let response):
       newState.section = getSection(app: response.success?.results.first)
+      newState.model = response.success?.results.first
       newState.error = response.fail
     
     case .updateSection(let selectedItem):
