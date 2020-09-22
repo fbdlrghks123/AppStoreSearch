@@ -82,8 +82,6 @@ final class ImageDownLoadManager {
   }
 }
 
-fileprivate let imageCache = NSCache<NSString, UIImage>()
-
 extension UIImageView {
   func setImage(url: String) {
     ImageDownLoadManager.shared.downloadImage(url) { image in
